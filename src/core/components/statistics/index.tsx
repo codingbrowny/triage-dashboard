@@ -17,7 +17,7 @@ interface StatComponentInterface {
 
 const Statistics = ({title, value, color}: StatComponentInterface) => {
   return (
-    <div className={`w-full p-4 text-center text-white space-y-6 rounded-lg bg-gradient-to-r ${color}`}>
+    <div className={`w-full sm:w-[48%] md:w-full p-4 text-center text-white space-y-6 rounded-lg bg-gradient-to-r ${color}`}>
         <h2 className='text-2xl font-semibold'>{title}</h2>
        <h3 className='text-2xl font-semibold'>{value}</h3>
     </div>
