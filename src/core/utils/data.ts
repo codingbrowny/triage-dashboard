@@ -70,61 +70,61 @@ export const DoctorsData = {
       id: 14365870,
       name: "Dr. Emmanuel Ashley",
       speciality: "Surgery",
-      subscription: "90 days",
+      subscription: 90,
     },
     {
       id: 11436587,
       name: "Dr. Emmanuel Ashley",
       speciality: "Surgery",
-      subscription: "60 days",
+      subscription: 60,
     },
     {
       id: 21436587,
       name: "Dr. Emmanuel Ashley",
       speciality: "Surgery",
-      subscription: "18 days",
+      subscription: 18,
     },
     {
       id: 31436587,
       name: "Dr. Emmanuel Ashley",
       speciality: "Surgery",
-      subscription: "90 days",
+      subscription: 0,
     },
     {
       id: 41436587,
       name: "Dr. Emmanuel Ashley",
       speciality: "Surgery",
-      subscription: "6 days",
+      subscription: 6,
     },
     {
       id: 51436587,
       name: "Dr. Emmanuel Ashley",
       speciality: "Surgery",
-      subscription: "20 days",
+      subscription: 20,
     },
     {
       id: 61436587,
       name: "Dr. Emmanuel Ashley",
       speciality: "Surgery",
-      subscription: "6 days",
+      subscription: 6,
     },
     {
       id: 71436587,
       name: "Dr. Emmanuel Ashley",
       speciality: "Surgery",
-      subscription: "no subscription",
+      subscription: 30,
     },
     {
       id: 81436587,
       name: "Dr. Emmanuel Ashley",
       speciality: "Surgery",
-      subscription: "50 days",
+      subscription: 50,
     },
     {
       id: 91436587,
       name: "Dr. Emmanuel Ashley",
       speciality: "Surgery",
-      subscription: "19 days",
+      subscription: 19,
     },
   ],
 };
@@ -224,11 +224,11 @@ export const ConsultantsData = {
 
 export const CasesData = {
     Column: [
-        {field: "id", headerName: "ID"},
-        {field: "description", headerName: "Description"},
-        {field: "comments", headerName: "No. of Comments"},
-        {field: "status", headerName: "Status"},
-        {field: "action", headerName: ""},
+        {field: "id", headerName: "ID", maxWidth: 150},
+        {field: "description", headerName: "Description", minWidth: 150},
+        {field: "comments", headerName: "No. of Comments", maxWidth: 150},
+        {field: "status", headerName: "Status", maxWidth: 150},
+        {field: "action", headerName: "", maxWidth: 100},
     ],
     Data: [
         {
@@ -241,13 +241,13 @@ export const CasesData = {
             id: 123456789,
             description: "A 23 year old boy has been diagnosed with malaria but he's unable to recover",
             comments: 12,
-            status: "open"
+            status: "closed"
         },
         {
             id: 92345678,
             description: "A 23 year old boy has been diagnosed with malaria but he's unable to recover",
             comments: 12,
-            status: "open"
+            status: "closed"
         },
         {
             id: 82345678,
@@ -271,7 +271,7 @@ export const CasesData = {
             id: 62345678,
             description: "A 23 year old boy has been diagnosed with malaria but he's unable to recover",
             comments: 12,
-            status: "open"
+            status: "closed"
         },
         {
             id: 52345678,
