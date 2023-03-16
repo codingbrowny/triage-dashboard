@@ -60,14 +60,16 @@ const Layout = ({ children }: { children: ReactElement }) => {
       )}
       <div className="relative content w-full overflow-hidden overflow-y-auto">
         <div className="relative flex items-center gap-3">
-          <IconButton
-            className="bg-gray-400/20 hover:bg-gray-400/30 lg:hidden absolute z-50 left-5"
-            onClick={toggleDrawer}
-            title="Open Modal"
-            aria-label="Toggle sidebar"
-          >
-            <MenuIcon />
-          </IconButton>
+          {width <= 1024 && (
+            <IconButton
+              className="bg-gray-400/20 hover:bg-gray-400/30 md:hidden absolute z-50 left-5"
+              onClick={toggleDrawer}
+              title="Open Modal"
+              aria-label="Toggle sidebar"
+            >
+              <MenuIcon />
+            </IconButton>
+          )}
           <Navbar />
         </div>
         {loading ? (
