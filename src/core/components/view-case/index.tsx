@@ -10,7 +10,7 @@ import AppDialog from "../dialog";
 const ViewCaseModal = ({ open, handleClose, data }) => {
   return (
     <AppDialog open={open} handleClose={handleClose} title={`Case ${data?.id}`}>
-      <div className="parent my-5 space-y-5 px-4">
+      <div className="my-5 space-y-5 px-4">
         <div className="history space-y-1">
         <Typography className="text-gray-600 text-xl font-semibold">
           History
