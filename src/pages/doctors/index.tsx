@@ -45,7 +45,7 @@ const DoctorsPage: PageWithLayout = () => {
     <div>
       <StatHeader />
       <div className="bg-white h-full w-full mt-5">
-        <PageTitle title="Doctors">
+        <PageTitle title={value === 0 ? "Doctors" : "Consultants"}>
           <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
             <Tabs
               value={value}
@@ -87,7 +87,7 @@ const DoctorsPage: PageWithLayout = () => {
         data={undefined}
         open={doctor}
         handleClose={() => handleClose("doctor")}
-        onClickDelete={()=>{}}
+        onClickDelete={() => {}}
       />
       {/* Subscription Modal */}
       <RenewSubscription
