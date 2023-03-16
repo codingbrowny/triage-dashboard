@@ -7,7 +7,7 @@ import React from "react";
 import AppDialog from "../dialog";
 
 
-const ViewCaseModal = ({ open, handleClose, data }) => {
+const ViewCaseModal = ({ open, handleClose, data }: {open:boolean, handleClose:any, data:any}) => {
   return (
     <AppDialog open={open} handleClose={handleClose} title={`Case ${data?.id}`}>
       <div className="my-5 space-y-5 px-4">
