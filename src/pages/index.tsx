@@ -8,7 +8,7 @@ const Index:PageWithLayout = () => {
   return (
       <div className="text-black">
         <StatHeader />
-        <div className="bg-white h-full w-full mt-5">
+        <div className="bg-white h-full w-full mt-5 p-3">
           <PageTitle title="Dashboard" />
           <AreaChart />
         </div>
