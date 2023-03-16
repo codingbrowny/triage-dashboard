@@ -43,7 +43,7 @@ const Layout = ({ children }: { children: ReactElement }) => {
   return (
     <div className="relative bg-background flex h-screen max-h-full overflow-hidden">
       {width >= 1024 ? (
-        <aside className="w-72 lg:-w-80 h-screen hidden xl:block transition-[display] duration-300 bg-white">
+        <aside className="w-72 lg:-w-80 h-screen hidden lg:block transition-[display] duration-300 bg-white">
           <Sidebar />
         </aside>
       ) : (
@@ -53,23 +53,22 @@ const Layout = ({ children }: { children: ReactElement }) => {
           onClose={toggleDrawer}
           onOpen={toggleDrawer}
         >
-          <Box className="w-64 lg:-w-72">
+          <Box className="w-64 lg:w-72">
             <Sidebar />
           </Box>
         </SwipeableDrawer>
       )}
       <div className="relative content w-full overflow-hidden overflow-y-auto">
         <div className="relative flex items-center gap-3">
-          {width <= 1024 && (
+         
             <IconButton
-              className="bg-gray-400/20 hover:bg-gray-400/30 md:hidden absolute z-50 left-5"
+              className="bg-gray-400/20 hover:bg-gray-400/30 lg:hidden absolute z-50 left-5"
               onClick={toggleDrawer}
               title="Open Modal"
               aria-label="Toggle sidebar"
             >
               <MenuIcon />
             </IconButton>
-          )}
           <Navbar />
         </div>
         {loading ? (
