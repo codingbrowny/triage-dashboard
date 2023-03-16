@@ -21,7 +21,7 @@ export const useTableSearch = (
   //Table Filters
   const filters = column?.filter((el) => el.field !== "action");
 
-  const handleFilterChange = (e) => { 
+  const handleFilterChange = (e:any) => { 
     const {value, name} = e.target
     if (name === "columns") {
       setSearchFilter(prev => ({ ...prev, columnFilter: value }))
