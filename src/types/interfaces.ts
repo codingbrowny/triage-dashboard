@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { ReactElement, ReactNode } from "react";
 
 export interface DialogInterface {
     /** Opens the dialog */
@@ -6,6 +6,6 @@ export interface DialogInterface {
     /** Function for handling the close action on the dialog */
     handleClose: any;
     /**The Dialog title */
-    title?: ReactElement | HTMLElement | string;
+    title?: ReactNode;
     children?: ReactElement
   }
