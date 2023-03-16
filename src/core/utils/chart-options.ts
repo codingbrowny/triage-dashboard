@@ -36,16 +36,16 @@ export const ChartOptions = {
   },
   /** Handle mostly the axes and grid lines of the chart */
   scales: {
-    xAxes: {
-      stacked: false,
-      grid: {
-        display: false,
-      },
-    },
-    yAxes: {
-      grid: {
-        display: false,
-      },
-    },
+    // xAxes: {
+    //   stacked: false,
+    //   grid: {
+    //     display: false,
+    //   },
+    // },
+    // yAxes: {
+    //   grid: {
+    //     display: false,
+    //   },
+    // },
   },
 };
