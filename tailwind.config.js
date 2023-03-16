@@ -10,6 +10,7 @@ module.exports = {
         "app-green": "#8AC690",
         "app-red": "#DC3E3E",
         "app-blue": "#2A88D8",
+        "app-yellow": "#F79C0D",
         "background": "#E5E5E5"
       }
     },
