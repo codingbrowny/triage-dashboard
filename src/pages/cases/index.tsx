@@ -1,14 +1,37 @@
-import React, {useState} from "react";
-import { AddCaseModal, DataTable, PageTitle } from "@/core/components";
+import React, { useState } from "react";
+import {
+  AddCaseModal,
+  DataTable,
+  PageTitle,
+  ViewCaseModal,
+} from "@/core/components";
 import type { PageWithLayout } from "../_app";
 import Layout from "@/core/layouts";
 import { Box, Button } from "@mui/material";
 import { CasesData } from "@/core/utils/data";
+import { GridCallbackDetails, GridRowParams, MuiEvent } from "@mui/x-data-grid";
 
 const CasesPage: PageWithLayout = () => {
   const { Data, Column } = CasesData;
-  const [{addCase, viewCase}, setOpenModal] = useState({addCase: false, viewCase: false})
-  const handleClose = (modal: string) => setOpenModal(prev => ({...prev, [modal]: ![modal]}))
+  const [caseDetails, setCaseDetails] = useState();
+  const [{ addCase, viewCase }, setOpenModal] = useState({
+    addCase: false,
+    viewCase: false,
+  });
+  //Handle Modal Close
+  const handleClose = (modal: "addCase" | "viewCase") =>
+    setOpenModal((prev) => ({ ...prev, [modal]: ![modal] }));
+
+  //Table Row CLick - Open Case Details Modals
+  const onRowClick = (
+    params: GridRowParams,
+    event: MuiEvent<React.MouseEvent>,
+    details: GridCallbackDetails
+  ) => {
+    setCaseDetails(params.row);
+    setOpenModal((prev) => ({ ...prev, viewCase: !viewCase }));
+  };
+
   return (
     <>
       <div className="bg-white w-full">
@@ -16,15 +39,18 @@ const CasesPage: PageWithLayout = () => {
           <Button
             variant="outlined"
             className="border-green-500 border hover:border-green-600 text-green-600 font-semibold lowercase"
-            onClick={()=> setOpenModal(prev=>({...prev, addCase:!addCase}))}
+            onClick={() =>
+              setOpenModal((prev) => ({ ...prev, addCase: !addCase }))
+            }
           >
             add case +
           </Button>
         </PageTitle>
-        <Box sx={{ p: 3 }}>
+        <Box className="p-2 sm:p-3 md:p-5">
           <DataTable
             data={Data}
             tableHeader={Column}
+            onRowClick={onRowClick}
             actions={{
               onEditData: undefined,
               onRenewSubscription: undefined,
@@ -32,8 +58,18 @@ const CasesPage: PageWithLayout = () => {
             }}
           />
         </Box>
-        <AddCaseModal open={addCase} handleClose={()=>handleClose("addCase")} />
       </div>
+        {/* Add Case Modal */}
+        <AddCaseModal
+          open={addCase}
+          handleClose={() => handleClose("addCase")}
+        />
+        {/* View Case Modal */}
+        <ViewCaseModal
+          open={viewCase}
+          handleClose={() => handleClose("viewCase")}
+          data={caseDetails}
+        />
     </>
   );
 };
