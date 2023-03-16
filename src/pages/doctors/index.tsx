@@ -58,7 +58,7 @@ const DoctorsPage: PageWithLayout = () => {
             </Tabs>
           </Box>
         </PageTitle>
-        <Box>
+        <Box className="p-2 sm:p-3 md:p-5">
           <TabPanel value={value} index={0}>
             <DataTable
               data={Data}
