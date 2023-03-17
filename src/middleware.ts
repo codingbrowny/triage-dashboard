@@ -5,8 +5,9 @@ export default withAuth({
     
   secret: "abcdefgh",
   pages: {
-    signIn: "/auth/signin",
-    signOut: "/auth/signin",
+    signIn: "/auth/login",
+    signOut: "/auth/login",
+    error: "/auth/login"
     },
     callbacks: {
       authorized({token, req}) {
