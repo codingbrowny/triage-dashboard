@@ -1,4 +1,5 @@
 import "../styles/globals.css"
+import { StyledEngineProvider } from "@mui/material/styles";
 
 import type { ReactElement, ReactNode } from "react";
 import type { NextPage } from "next";
@@ -21,6 +22,8 @@ export default function MyApp({
   const getLayout = Component.getLayout ?? ((page) => page);
 
   return getLayout(
-        <Component {...pageProps} />
+    <StyledEngineProvider injectFirst>
+      <Component {...pageProps} />
+    </StyledEngineProvider>
   );
 }
