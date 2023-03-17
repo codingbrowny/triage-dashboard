@@ -1,23 +1,12 @@
 import { useForm } from "@/core/hooks/useForm";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { signIn } from "next-auth/react";
 import Image from "next/image";
-import { useRouter } from "next/router";
+import Link from "next/link";
 import HealthCareImage from "../../../core/utils/images/healthcare-personnel.png";
 
-const SignInPage = () => {
-  const { error, callbackUrl } = useRouter().query;
+const SignUp = () => {
   const { values, inputChangeHandler } = useForm();
-
-  const handleLogin: React.FormEventHandler<HTMLFormElement> = async (e) => {
-    //prevent default submit behavior
-    e.preventDefault();
-    await signIn("credentials", {
-      callbackUrl: String(callbackUrl),
-      ...values,
-    });
-  };
 
   return (
     <div className="flex items-center h-screen w-full">
@@ -25,38 +14,54 @@ const SignInPage = () => {
         <Typography className="text-2xl justify-self-start mb-auto">
           Triage
         </Typography>
-        <form className="space-y-5 w-full mb-auto" onSubmit={handleLogin}>
-          {error && (
-            <div className="w-[80%] mx-auto text-app-red bg-white/60 rounded p-2 transition-all duration-75">
-              <span className="mb-1 text-lg">{error }.</span>
-              <Typography>
-                Check that you&apos;ve entered the correct username and password
+        <form className="space-y-7 w-[95%] sm:w-[90%] md:w-4/5 mx-auto mb-auto bg-white/20 rounded-xl py-10 shadow-xl">
+          {/* <div className="w-[80%] mx-auto bg-white/60 rounded p-4 transition-all duration-75">
+              <Typography className="text-2xl text-center transition-all duration-150 font-semibold">
+                Sign Up
               </Typography>
-            </div>
-          )}
+            </div> */}
+          <input
+            type="text"
+            onChange={inputChangeHandler}
+            name="name"
+            placeholder="Name"
+            className="w-[80%] mx-auto border-0 border-b outline-none p-2 border-b-white bg-transparent text-white placeholder:text-white block"
+          />
           <input
             type="text"
             onChange={inputChangeHandler}
             name="username"
-            placeholder="username"
+            placeholder="Username"
             className="w-[80%] mx-auto border-0 border-b outline-none p-2 border-b-white bg-transparent text-white placeholder:text-white block"
           />
           <input
             type="password"
             name="password"
             onChange={inputChangeHandler}
-            placeholder="password"
+            placeholder="Password"
+            className="w-[80%] mx-auto block border-0 border-b outline-none p-2 border-b-white bg-transparent text-white placeholder:text-white"
+          />
+          <input
+            type="password"
+            name="cpassword"
+            onChange={inputChangeHandler}
+            placeholder="Confirm password"
             className="w-[80%] mx-auto block border-0 border-b outline-none p-2 border-b-white bg-transparent text-white placeholder:text-white"
           />
           <div className="flex justify-center items-center">
             <Button
               type="submit"
-              className="bg-app-green text-white mx-auto px-5 py-2 hover:bg-app-green capitalize"
+              className="bg-app-yellow text-white mx-auto px-10 py-2 hover:bg-app-yellow/80 capitalize"
             >
-              Login
+              Signup
             </Button>
           </div>
-          0
+          <div className="w-4/5 mx-auto flex items-center gap-2 text-white">
+            <span>Have an account?</span>
+            <Link href={"/auth/login"} className="text-slate-700 underline">
+              Login here
+            </Link>
+          </div>
         </form>
         <Image
           src={HealthCareImage}
@@ -75,4 +80,4 @@ const SignInPage = () => {
   );
 };
 
-export default SignInPage;
+export default SignUp;
