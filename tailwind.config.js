@@ -1,12 +1,12 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  corePlugins: {
-    preflight: false,
-  },
+  // corePlugins: {
+  //   preflight: false,
+  // },
   content: [
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
-  important: "#__next",
+  // important: "#__next",
   theme: {
     extend: {
       colors: {
