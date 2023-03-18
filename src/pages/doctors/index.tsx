@@ -13,10 +13,12 @@ import type { PageWithLayout } from "../_app";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
+import { GridCallbackDetails, GridRowParams, MuiEvent } from "@mui/x-data-grid";
 
 const DoctorsPage: PageWithLayout = () => {
   const { Column, Data } = DoctorsData;
   const [value, setValue] = useState(0);
+  const [rowDetails, setRowDetails] = useState();
   const [{ doctor, subscription }, setOpenModal] = useState({
     doctor: false,
     subscription: false,
@@ -26,7 +28,7 @@ const DoctorsPage: PageWithLayout = () => {
     setOpenModal((prev) => ({ ...prev, doctor: !doctor }));
   const openSubscriptionModal = () =>
     setOpenModal((prev) => ({ ...prev, subscription: !subscription }));
-
+  //Modals Close Handler
   const handleClose = (modal: "doctor" | "subscription") =>
     setOpenModal((prev) => ({ ...prev, [modal]: ![modal] }));
 
@@ -39,6 +41,15 @@ const DoctorsPage: PageWithLayout = () => {
       id: `simple-tab-${index}`,
       "aria-controls": `simple-tabpanel-${index}`,
     };
+  };
+
+  //Get row details
+  const onRowClick = (
+    params: GridRowParams,
+    event: MuiEvent<React.MouseEvent>,
+    details: GridCallbackDetails
+  ) => {
+    setRowDetails(params.row);
   };
 
   return (
@@ -63,6 +74,7 @@ const DoctorsPage: PageWithLayout = () => {
             <DataTable
               data={Data}
               tableHeader={Column}
+              onRowClick={onRowClick}
               actions={{
                 onDeleteData: openDoctorDeleteModal,
                 onRenewSubscription: openSubscriptionModal,
@@ -73,6 +85,7 @@ const DoctorsPage: PageWithLayout = () => {
             <DataTable
               data={ConsultantsData.Data}
               tableHeader={ConsultantsData.Column}
+              onRowClick={onRowClick}
               actions={{
                 onDeleteData: openDoctorDeleteModal,
                 onRenewSubscription: openSubscriptionModal,
@@ -84,15 +97,17 @@ const DoctorsPage: PageWithLayout = () => {
 
       {/* Delete Doctor Modal */}
       <DeleteDoctor
-        data={undefined}
+        data={rowDetails}
         open={doctor}
         handleClose={() => handleClose("doctor")}
         onClickDelete={() => {}}
       />
       {/* Subscription Modal */}
       <RenewSubscription
+        data={rowDetails}
         open={subscription}
         handleClose={() => handleClose("subscription")}
+        onClickApprove={() => {}}
       />
     </div>
   );
