@@ -25,13 +25,13 @@ const DeleteDoctorModal = ({data, open, onClickDelete, handleClose}: DialogInter
       >
         <div>
         <Typography className="text-center my-5">
-          Are you sure you want to delete Dr. Kusi Mensah
+          Are you sure you want to delete {data?.name}
         </Typography>
         <div className="flex justify-between item-center w-full md:w-5/6 md:mx-auto mt-5">
           <Button
             variant="outlined"
             className="border hover:border-app-red border-app-red text-app-red"
-            onClick={()=>onClickDelete}
+            onClick={()=>onClickDelete(data)}
           >
             Delete
           </Button>
