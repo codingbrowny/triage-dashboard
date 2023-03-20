@@ -24,9 +24,10 @@ export const useForm = (callback?: Function) => {
    */
   const inputChangeHandler = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     event.persist();
-    if (event.target.type=== "file") {
+    if (event.target.type === "file") {
       setValues((prev) => ({
         ...prev,
+        //@ts-ignore
         [event.target.name]: event.target.files!,
       }));
       
