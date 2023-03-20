@@ -21,14 +21,18 @@ const SignInPage = () => {
 
   return (
     <div className="flex items-center h-screen w-full">
-      <div className="w-full md:basis-3/5 lg:basis2/5 bg-primary h-full flex flex-col justify-center items-center pt-10">
-        <Typography className="text-2xl justify-self-start mb-auto">
-          Triage
-        </Typography>
+      <div className="w-full md:basis-3/5 lg:basis2/5 bg-primary h-full flex flex-col justify-center items-center pt-10 sm:pt-12 md:pt-14 lg:pt-16">
+        <Image
+          src={"/triage-logo.png"}
+          alt="Triage Logo"
+          width={120}
+          height={50}
+          className="mb-auto"
+        />
         <form className="space-y-5 w-full mb-auto" onSubmit={handleLogin}>
           {error && (
             <div className="w-[80%] mx-auto text-app-red bg-white/60 rounded p-2 transition-all duration-75">
-              <span className="mb-1 text-lg">{error }.</span>
+              <span className="mb-1 text-lg">{error}.</span>
               <Typography>
                 Check that you&apos;ve entered the correct username and password
               </Typography>

@@ -11,9 +11,12 @@ const SignUp = () => {
   return (
     <div className="flex items-center h-screen w-full">
       <div className="w-full md:basis-3/5 lg:basis2/5 bg-primary h-full flex flex-col justify-center items-center pt-10">
-        <Typography className="text-2xl justify-self-start mb-auto">
-          Triage
-        </Typography>
+        <Image
+          src={"/triage-logo.png"}
+          alt="Triage Logo"
+          width={120}
+          height={50}
+        />
         <form className="space-y-7 w-[95%] sm:w-[90%] md:w-4/5 mx-auto mb-auto bg-white/20 rounded-xl py-10 shadow-xl">
           {/* <div className="w-[80%] mx-auto bg-white/60 rounded p-4 transition-all duration-75">
               <Typography className="text-2xl text-center transition-all duration-150 font-semibold">

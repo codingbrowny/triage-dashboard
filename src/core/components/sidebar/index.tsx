@@ -3,7 +3,8 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import MenuList from "@mui/material/MenuList";
 import MenuItem from "@mui/material/MenuItem";
-import { SidebarLinks  } from "../../utils/data";
+import { SidebarLinks } from "../../utils/data";
+import Image from "next/image";
 
 const Sidebar = () => {
 
@@ -16,9 +17,9 @@ const Sidebar = () => {
 
   return (
     <>
-      <h3 className="brand uppercase tracking-tight font-bold text-center bg-primary p-5">
-        Triage
-      </h3>
+      <div className="brand uppercase tracking-tight font-bold h-16 bg-primary flex items-center justify-center">
+      <Image src={"/triage-logo.png"} alt="Triage Logo" width={120} height={50} />
+      </div>
       <MenuList className="side-links relative w-full space-y-5 mt-5 md:w-[75%] md:float-right">
         {SidebarLinks.map((link, index) => (
           <MenuItem
