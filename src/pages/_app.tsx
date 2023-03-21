@@ -4,6 +4,8 @@ import { StyledEngineProvider } from "@mui/material/styles";
 import type { ReactElement, ReactNode } from "react";
 import type { NextPage } from "next";
 import type { AppProps } from "next/app";
+import { ApolloProvider } from "@apollo/client";
+import { apolloClient } from "@/core/graphql/client";
 
 export type PageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -23,7 +25,9 @@ export default function MyApp({
 
   return getLayout(
     <StyledEngineProvider injectFirst>
-      <Component {...pageProps} />
+      <ApolloProvider client={apolloClient}>
+        <Component {...pageProps} />
+      </ApolloProvider>
     </StyledEngineProvider>
   );
 }
