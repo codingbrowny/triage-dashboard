@@ -101,7 +101,7 @@ const DataTable = ({ tableHeader, data, actions, onRowClick, pageSize = 10, load
             return <ExpandLessOutlinedIcon />;
           },
         }}
-        pageSizeOptions={[15, 20, 25]}
+        pageSizeOptions={[10, 12, 15, 20, 25]}
         initialState={{
           pagination: { paginationModel: { pageSize } },
         }}
