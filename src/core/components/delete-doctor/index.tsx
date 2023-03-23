@@ -1,13 +1,15 @@
-import Button from '@mui/material/Button'
-import Typography from '@mui/material/Typography'
-import React from 'react'
-import { AppDialog } from '..'
+import { DeleteDoctor } from "@/core/graphql/mutations";
+import { useMutation } from "@apollo/client";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import React from "react";
+import { AppDialog, LoadingButton } from "..";
 
 export interface DialogInterface {
   /**
    * Doctor data passed to component
    */
-  data: any
+  details: any;
   /** Opens the dialog */
   open: boolean;
   /** Function for handling the close action on the dialog */
@@ -16,25 +18,29 @@ export interface DialogInterface {
   onClickDelete: Function;
 }
 
-const DeleteDoctorModal = ({data, open, onClickDelete, handleClose}: DialogInterface) => {
+const DeleteDoctorModal = ({
+  details,
+  open,
+  onClickDelete,
+  handleClose,
+}: DialogInterface) => {
+  const [mutateFunction, { loading, error, data }] = useMutation(DeleteDoctor, {
+    variables: { id: details?.id },
+  });
   return (
-    <AppDialog
-        title={"Delete Doctor"}
-        open={open}
-        handleClose={handleClose}
-      >
-        <div>
+    <AppDialog title={"Delete Doctor"} open={open} handleClose={handleClose}>
+      <div>
         <Typography className="text-center my-5">
-          Are you sure you want to delete Dr. {data?.username}
+          Are you sure you want to delete Dr. {details?.username}
         </Typography>
         <div className="flex justify-between item-center w-full md:w-5/6 md:mx-auto mt-5">
-          <Button
+          <LoadingButton
+            title="Delete"
             variant="outlined"
+            loading={loading}
             className="border hover:border-app-red border-app-red text-app-red"
-            onClick={()=>onClickDelete(data)}
-          >
-            Delete
-          </Button>
+            onClick={() => mutateFunction()}
+          ></LoadingButton>
           <Button
             variant="outlined"
             className="border hover:border-gray-700 border-gray-700 text-gray-700"
@@ -43,9 +49,9 @@ const DeleteDoctorModal = ({data, open, onClickDelete, handleClose}: DialogInter
             Cancel
           </Button>
         </div>
-        </div>
-      </AppDialog>
-  )
-}
+      </div>
+    </AppDialog>
+  );
+};
 
-export default DeleteDoctorModal
+export default DeleteDoctorModal;
