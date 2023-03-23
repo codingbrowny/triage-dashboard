@@ -6,6 +6,7 @@ import {
   gridPageCountSelector,
   gridPageSelector,
   useGridApiContext,
+  useGridApiRef,
   useGridSelector,
 } from "@mui/x-data-grid";
 import { Pagination } from "@mui/material";
@@ -14,6 +15,7 @@ import EmptyBox from "../../utils/images/empty-box.png"
 import ExpandLessOutlinedIcon from "@mui/icons-material/ExpandLessOutlined";
 import ExpandMoreOutlinedIcon from "@mui/icons-material/ExpandMoreOutlined";
 import Image from "next/image"
+import TablePagination from "../table-pagination";
 
 interface DataGridInterface {
   /** The data to show on the table */
@@ -48,10 +50,14 @@ interface DataGridInterface {
    * Not called if the target clicked is an interactive element added by the built-in columns.
    */
   onRowClick?: GridEventListener<"rowClick">
-
+  /**
+   * Indicated the loading state of the table
+   */
+  loading?: boolean
 }
 
-const DataTable = ({ tableHeader, data, actions, onRowClick, pageSize = 10 }: DataGridInterface) => {
+const DataTable = ({ tableHeader, data, actions, onRowClick, pageSize = 10, loading=false }: DataGridInterface) => {
+  const apiRef = useGridApiRef()
   // Setting the Table Header
   const renderTableHead = () => {
     let tableHead: GridColDef[] = [];
@@ -62,25 +68,6 @@ const DataTable = ({ tableHeader, data, actions, onRowClick, pageSize = 10 }: Da
       tableHead.push({ ...data, flex: 1, headerClassName: "bg-primary font-bold text-[16px] text-white font-bold" });
     }
     return tableHead;
-  };
-
-  // Custom Pagination Component
-  const CustomPagination = () => {
-    const apiRef = useGridApiContext();
-    const page = useGridSelector(apiRef, gridPageSelector);
-    const pageCount = useGridSelector(apiRef, gridPageCountSelector);
-
-    return (
-      <Pagination
-        color="primary"
-        count={pageCount}
-        page={page + 1}
-        onChange={(event, value) => apiRef.current.setPage(value - 1)}
-        siblingCount={1}
-        size="small"
-        shape="rounded"
-      />
-    );
   };
 
   const EmptyDataOverlay = () => (
@@ -94,22 +81,29 @@ const DataTable = ({ tableHeader, data, actions, onRowClick, pageSize = 10 }: Da
     <div className="relative min-w-full h-fit max-h-full">
       <DataGrid
         sx={{ width: "100%", backgroundColor: "white", maxHeight: "100%" }}
+        apiRef={apiRef}
         columns={renderTableHead()}
         rows={data}
         editMode={"cell"}
         autoHeight={true}
         checkboxSelection
         disableRowSelectionOnClick
+        loading={loading}
         onRowClick={onRowClick}
+        pagination
         slots={{
-          pagination: CustomPagination,
+          pagination: TablePagination,
           noRowsOverlay: EmptyDataOverlay,
           columnSortedAscendingIcon(props) {
-              return <ExpandMoreOutlinedIcon />
+            return <ExpandMoreOutlinedIcon />;
           },
           columnSortedDescendingIcon(props) {
-              return <ExpandLessOutlinedIcon />
-          }, 
+            return <ExpandLessOutlinedIcon />;
+          },
+        }}
+        pageSizeOptions={[15, 20, 25]}
+        initialState={{
+          pagination: { paginationModel: { pageSize } },
         }}
       />
     </div>
