@@ -13,4 +13,5 @@ export { default as AppDialog } from "./dialog";
 export { default as DeleteDoctor } from "./delete-doctor";
 export { default as RenewSubscription} from "./renew-subscription"
 export { default as AddCaseModal} from "./add-case"
-export { default as ViewCaseModal} from "./view-case"
+export { default as ViewCaseModal } from "./view-case"
+export {default as TablePagination} from "./table-pagination"
