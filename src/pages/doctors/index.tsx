@@ -14,6 +14,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import { GridCallbackDetails, GridRowParams, MuiEvent } from "@mui/x-data-grid";
+import { A11yProps } from "@/core/utils/fns";
 
 const DoctorsPage: PageWithLayout = () => {
   const { Column, Data } = DoctorsData;
@@ -31,16 +32,9 @@ const DoctorsPage: PageWithLayout = () => {
   //Modals Close Handler
   const handleClose = (modal: "doctor" | "subscription") =>
     setOpenModal((prev) => ({ ...prev, [modal]: ![modal] }));
-
   //Tab Change Handler
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
-  };
-  const a11yProps = (index: number) => {
-    return {
-      id: `simple-tab-${index}`,
-      "aria-controls": `simple-tabpanel-${index}`,
-    };
   };
 
   //Get row details
@@ -64,8 +58,8 @@ const DoctorsPage: PageWithLayout = () => {
               aria-label="basic tabs example"
               textColor="inherit"
             >
-              <Tab label="Doctors" {...a11yProps(0)} />
-              <Tab label="Consultants" {...a11yProps(1)} />
+              <Tab label="Doctors" {...A11yProps(0)} />
+              <Tab label="Consultants" {...A11yProps(1)} />
             </Tabs>
           </Box>
         </PageTitle>
