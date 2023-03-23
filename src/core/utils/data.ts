@@ -1,6 +1,6 @@
-import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
-import Person3OutlinedIcon from '@mui/icons-material/Person3Outlined';
-import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined';
+import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
+import Person3OutlinedIcon from "@mui/icons-material/Person3Outlined";
+import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
 export const SidebarLinks = [
   {
     name: "Dashboard",
@@ -38,124 +38,60 @@ export const ChartLabels = [
 export const DoctorsData = {
   Column: [
     {
-      field: "name",
-      headerName: "Name",
-      minWidth: 230
-    },
-    {
       field: "id",
       headerName: "ID",
-      maxWidth: 150,
-      minWidth: 120
+    },
+    {
+      field: "username",
+      headerName: "Name",
+      minWidth: 230,
     },
     {
       field: "speciality",
       headerName: "Speciality",
-      minWidth: 150
+      minWidth: 250,
     },
     {
       field: "subscription",
       headerName: "Subscription Period",
-      minWidth: 200
+      minWidth: 200,
     },
     {
       field: "action",
       headerName: "",
       maxWidth: 100,
-      minWidth: 100
-    },
-  ],
-  Data: [
-    {
-      id: 14365870,
-      name: "Dr. Emmanuel Ashley",
-      speciality: "Surgery",
-      subscription: 90,
-    },
-    {
-      id: 11436587,
-      name: "Dr. Emmanuel Ashley",
-      speciality: "Surgery",
-      subscription: 60,
-    },
-    {
-      id: 21436587,
-      name: "Dr. Emmanuel Ashley",
-      speciality: "Surgery",
-      subscription: 18,
-    },
-    {
-      id: 31436587,
-      name: "Dr. Emmanuel Ashley",
-      speciality: "Surgery",
-      subscription: 0,
-    },
-    {
-      id: 41436587,
-      name: "Dr. Emmanuel Ashley",
-      speciality: "Surgery",
-      subscription: 6,
-    },
-    {
-      id: 51436587,
-      name: "Dr. Emmanuel Ashley",
-      speciality: "Surgery",
-      subscription: 20,
-    },
-    {
-      id: 61436587,
-      name: "Dr. Emmanuel Ashley",
-      speciality: "Surgery",
-      subscription: 6,
-    },
-    {
-      id: 71436587,
-      name: "Dr. Emmanuel Ashley",
-      speciality: "Surgery",
-      subscription: 30,
-    },
-    {
-      id: 81436587,
-      name: "Dr. Emmanuel Ashley",
-      speciality: "Surgery",
-      subscription: 50,
-    },
-    {
-      id: 91436587,
-      name: "Dr. Emmanuel Ashley",
-      speciality: "Surgery",
-      subscription: 19,
+      minWidth: 100,
     },
   ],
 };
 export const ConsultantsData = {
   Column: [
     {
-      field: "name",
-      headerName: "Name",
-      minWidth: 230
-    },
-    {
       field: "id",
       headerName: "ID",
       maxWidth: 150,
-      minWidth: 120
+      minWidth: 120,
+    },
+    {
+      field: "name",
+      headerName: "Name",
+      minWidth: 230,
     },
     {
       field: "speciality",
       headerName: "Speciality",
-      minWidth: 200
+      minWidth: 200,
     },
     {
       field: "subscription_type",
       headerName: "Subscription Period",
-      minWidth: 200
+      minWidth: 200,
     },
     {
       field: "action",
       headerName: "",
       maxWidth: 100,
-      minWidth: 100
+      minWidth: 100,
     },
   ],
   Data: [
@@ -223,122 +159,54 @@ export const ConsultantsData = {
 };
 
 export const CasesData = {
-    Column: [
-        {field: "id", headerName: "ID", maxWidth: 150},
-        {field: "description", headerName: "Description", minWidth: 150},
-        {field: "comments", headerName: "No. of Comments", maxWidth: 150},
-        {field: "status", headerName: "Status", maxWidth: 150},
-        {field: "action", headerName: "", maxWidth: 100},
-    ],
-    Data: [
-        {
-            id: 11345678,
-            description: "A 23 year old boy has been diagnosed with malaria but he's unable to recover",
-            comments: 12,
-            status: "open"
-        },
-        {
-            id: 123456789,
-            description: "A 23 year old boy has been diagnosed with malaria but he's unable to recover",
-            comments: 12,
-            status: "closed"
-        },
-        {
-            id: 92345678,
-            description: "A 23 year old boy has been diagnosed with malaria but he's unable to recover",
-            comments: 12,
-            status: "closed"
-        },
-        {
-            id: 82345678,
-            description: "A 23 year old boy has been diagnosed with malaria but he's unable to recover",
-            comments: 12,
-            status: "open"
-        },
-        {
-            id: 12345678,
-            description: "A 23 year old boy has been diagnosed with malaria but he's unable to recover",
-            comments: 12,
-            status: "open"
-        },
-        {
-            id: 72345678,
-            description: "A 23 year old boy has been diagnosed with malaria but he's unable to recover",
-            comments: 12,
-            status: "open"
-        },
-        {
-            id: 62345678,
-            description: "A 23 year old boy has been diagnosed with malaria but he's unable to recover",
-            comments: 12,
-            status: "closed"
-        },
-        {
-            id: 52345678,
-            description: "A 23 year old boy has been diagnosed with malaria but he's unable to recover",
-            comments: 12,
-            status: "open"
-        },
-        {
-            id: 42345678,
-            description: "A 23 year old boy has been diagnosed with malaria but he's unable to recover",
-            comments: 12,
-            status: "open"
-        },
-        {
-            id: 32345678,
-            description: "A 23 year old boy has been diagnosed with malaria but he's unable to recover",
-            comments: 12,
-            status: "open"
-        },
-        {
-            id: 22345678,
-            description: "A 23 year old boy has been diagnosed with malaria but he's unable to recover",
-            comments: 12,
-            status: "open"
-        },
-    ]
-}
+  Column: [
+    { field: "id", headerName: "ID" },
+    { field: "description", headerName: "Description", minWidth: 150 },
+    { field: "comments", headerName: "No. of Comments", maxWidth: 150 },
+    { field: "closed", headerName: "Status", maxWidth: 180, minWidth: 150 },
+    { field: "action", headerName: "", },
+  ],
+};
 
 export const CaseHistory = [
   {
     id: 1,
     name: "Hypertension (HT)",
-    for: "hypertenstion"
+    for: "hypertenstion",
   },
   {
     id: 2,
     name: "Smoking",
-    for: "smoking"
+    for: "smoking",
   },
   {
     id: 3,
     name: "Diabetes (DB)",
-    for: "diabetes"
+    for: "diabetes",
   },
   {
     id: 4,
     name: "Renal Disease",
-    for: "renal-disease"
+    for: "renal-disease",
   },
   {
     id: 5,
     name: "Alcohol",
-    for: "alcohol"
+    for: "alcohol",
   },
   {
     id: 6,
     name: "Asthma",
-    for: "asthma"
+    for: "asthma",
   },
   {
     id: 7,
     name: "Heart Disease",
-    for: "heart-disease"
+    for: "heart-disease",
   },
   {
     id: 8,
     name: "COPD",
-    for: "copd"
+    for: "copd",
   },
-]
+];
