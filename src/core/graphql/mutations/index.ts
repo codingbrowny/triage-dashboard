@@ -8,7 +8,7 @@ export const DeleteDoctor = gql`
         }
     }
 `
-export const Deletecase = gql`
+export const DeleteCase = gql`
     mutation deleteCase($id: String!) {
         deleteCase(id: $id) {
             message
