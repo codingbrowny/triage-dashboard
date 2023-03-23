@@ -102,7 +102,7 @@ const DoctorsPage: PageWithLayout = () => {
 
       {/* Delete Doctor Modal */}
       <DeleteDoctor
-        data={rowDetails}
+        details={rowDetails}
         open={doctor}
         handleClose={() => handleClose("doctor")}
         onClickDelete={() => {}}
