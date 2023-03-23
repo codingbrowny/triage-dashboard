@@ -18,7 +18,7 @@ const Sidebar = () => {
   return (
     <>
       <div className="brand uppercase tracking-tight font-bold h-16 bg-primary flex items-center justify-center">
-      <Image src={"/triage-logo.png"} alt="Triage Logo" width={120} height={50} />
+      <Image src={"/triage-logo.png"} alt="Triage Logo" width={120} height={50} style={{width: "auto", height: "auto"}} />
       </div>
       <MenuList className="side-links relative w-full space-y-5 mt-5 md:w-[75%] md:float-right">
         {SidebarLinks.map((link, index) => (

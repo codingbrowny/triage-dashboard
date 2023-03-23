@@ -10,9 +10,14 @@ import Layout from "@/core/layouts";
 import { Box, Button } from "@mui/material";
 import { CasesData } from "@/core/utils/data";
 import { GridCallbackDetails, GridRowParams, MuiEvent } from "@mui/x-data-grid";
+import { useQuery } from "@apollo/client";
+import { AllCases } from "@/core/graphql/queries/cases";
 
 const CasesPage: PageWithLayout = () => {
-  const { Data, Column } = CasesData;
+  //Get Cases Data
+  const { loading, error, data, previousData } = useQuery(AllCases)
+  
+  const { Column } = CasesData;
   const [caseDetails, setCaseDetails] = useState();
   const [{ addCase, viewCase }, setOpenModal] = useState({
     addCase: false,
@@ -48,9 +53,11 @@ const CasesPage: PageWithLayout = () => {
         </PageTitle>
         <Box className="p-2 sm:p-3 md:p-5">
           <DataTable
-            data={Data}
+            data={data? data?.cases: previousData ? previousData?.cases: []}
             tableHeader={Column}
             onRowClick={onRowClick}
+            loading={loading}
+            pageSize={12}
             actions={{
               onEditData: undefined,
               onRenewSubscription: undefined,

@@ -33,7 +33,11 @@ export default function RenderDataCells({
   item = {
     ...item,
     renderCell(params: GridRenderCellParams) {
-      return <Typography className="text-gray-700">{params.value}</Typography>;
+      return (
+        <Typography className="text-gray-700 w-full text-ellipsis overflow-hidden">
+          {params.value}
+        </Typography>
+      );
     },
   };
   if (item.field === "subscription_type") {
@@ -42,6 +46,20 @@ export default function RenderDataCells({
       renderCell(params: GridRenderCellParams) {
         return (
           <Typography className="text-green-500">{params.value}</Typography>
+        );
+      },
+    };
+  }
+  if (item.field === "id") {
+    item = {
+      ...item,
+      minWidth: 230,
+      maxWidth:280,
+      renderCell(params: GridRenderCellParams) {
+        return (
+          <Typography className="w-full text-ellipsis overflow-hidden">
+            {params.value}
+          </Typography>
         );
       },
     };
@@ -62,31 +80,33 @@ export default function RenderDataCells({
     item = {
       ...item,
       renderCell(params: GridRenderCellParams) {
-        let style = ""
-        if(params.value < 9) {
-          style = "text-red-500"
-        }else if(params.value < 20) {
-          style = "text-app-yellow"
-        }else { style = "text-green-600"}
+        let style = "";
+        if (params.value < 9) {
+          style = "text-red-500";
+        } else if (params.value < 20) {
+          style = "text-app-yellow";
+        } else {
+          style = "text-green-600";
+        }
         return (
           <Typography className={`w-full ${style}`}>
-            {params.value ===0 ? "no subscription" : params.value + " days"}
+            {!params.value ? "no subscription" : params.value + " days"}
           </Typography>
         );
       },
     };
   }
-  if (item.field === "status") {
+  if (item.field === "closed") {
     item = {
       ...item,
       renderCell(params: GridRenderCellParams) {
-        return params.row.status === "open" ? (
+        return !params.row.status ? (
           <Typography className="text-center w-full text-green-500">
-            {params.value}
+            open
           </Typography>
         ) : (
           <Typography className="text-center w-full text-red-500">
-            {params.value}
+            closed
           </Typography>
         );
       },
@@ -96,7 +116,8 @@ export default function RenderDataCells({
   if (item.field === "action") {
     item = {
       ...item,
-      maxWidth: 100,
+      maxWidth: 150,
+      minWidth: 100,
       renderCell(params: GridRenderCellParams) {
         return (
           <TableActionMenu

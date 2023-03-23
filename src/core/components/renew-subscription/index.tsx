@@ -25,7 +25,7 @@ const RenewSubscription = ({ open, handleClose, data, onClickApprove }: DialogIn
             <Typography className="md:w-2/5 font-semibold">
               Doctor&apos;s Name:
             </Typography>
-            <Typography className="font-semibold">{data?.name}</Typography>
+            <Typography className="font-semibold">{data?.username}</Typography>
           </div>
           <div className="md:flex md:justify-start items-center text-gray-600 gap-4">
             <Typography className="md:w-2/5 font-semibold">
