@@ -15,9 +15,13 @@ import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import { GridCallbackDetails, GridRowParams, MuiEvent } from "@mui/x-data-grid";
 import { A11yProps } from "@/core/utils/fns";
+import { useQuery } from "@apollo/client";
+import { AllDoctors } from "@/core/graphql/queries/doctors";
 
 const DoctorsPage: PageWithLayout = () => {
-  const { Column, Data } = DoctorsData;
+  const { loading, error, data, previousData } = useQuery(AllDoctors);
+
+  const { Column } = DoctorsData;
   const [value, setValue] = useState(0);
   const [rowDetails, setRowDetails] = useState();
   const [{ doctor, subscription }, setOpenModal] = useState({
@@ -66,8 +70,15 @@ const DoctorsPage: PageWithLayout = () => {
         <Box className="p-2 sm:p-3 md:p-5">
           <TabPanel value={value} index={0}>
             <DataTable
-              data={Data}
+              data={
+                data
+                  ? data.doctors
+                  : previousData
+                  ? previousData.doctors
+                  : []
+              }
               tableHeader={Column}
+              loading={loading}
               onRowClick={onRowClick}
               actions={{
                 onDeleteData: openDoctorDeleteModal,

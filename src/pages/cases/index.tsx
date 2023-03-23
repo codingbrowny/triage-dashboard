@@ -15,7 +15,7 @@ import { AllCases } from "@/core/graphql/queries/cases";
 
 const CasesPage: PageWithLayout = () => {
   //Get Cases Data
-  const { loading, error, data } = useQuery(AllCases)
+  const { loading, error, data, previousData } = useQuery(AllCases)
   
   const { Column } = CasesData;
   const [caseDetails, setCaseDetails] = useState();
@@ -53,7 +53,7 @@ const CasesPage: PageWithLayout = () => {
         </PageTitle>
         <Box className="p-2 sm:p-3 md:p-5">
           <DataTable
-            data={data? data?.cases: []}
+            data={data? data?.cases: previousData ? previousData?.cases: []}
             tableHeader={Column}
             onRowClick={onRowClick}
             loading={loading}
