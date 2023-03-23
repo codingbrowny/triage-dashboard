@@ -22,6 +22,7 @@ const ViewCaseModal = ({
     variables: { id: caseDetails?.id },
     refetchQueries: [{ query: AllCases }],
   });
+  
   return (
     <AppDialog
       open={open}
