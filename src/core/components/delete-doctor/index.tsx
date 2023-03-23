@@ -25,7 +25,7 @@ const DeleteDoctorModal = ({data, open, onClickDelete, handleClose}: DialogInter
       >
         <div>
         <Typography className="text-center my-5">
-          Are you sure you want to delete {data?.name}
+          Are you sure you want to delete Dr. {data?.username}
         </Typography>
         <div className="flex justify-between item-center w-full md:w-5/6 md:mx-auto mt-5">
           <Button
