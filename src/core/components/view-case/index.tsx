@@ -1,22 +1,41 @@
-import { CaseHistory } from "@/core/utils/data";
+import { DeleteCase } from "@/core/graphql/mutations";
+import { AllCases } from "@/core/graphql/queries/cases";
+import { useMutation } from "@apollo/client";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Image from "next/image";
-import Link from "next/link";
 import React from "react";
+import { LoadingButton } from "..";
 import AppDialog from "../dialog";
 
-
-const ViewCaseModal = ({ open, handleClose, data }: {open:boolean, handleClose:any, data:any}) => {
+const ViewCaseModal = ({
+  open,
+  handleClose,
+  caseDetails,
+}: {
+  open: boolean;
+  handleClose: any;
+  caseDetails: any;
+  }) => {
+  // Delete case mutation
+  const [deleteCaseMutate, { loading, data }] = useMutation(DeleteCase, {
+    variables: { id: caseDetails?.id },
+    refetchQueries: [{ query: AllCases }],
+  });
+  
   return (
-    <AppDialog open={open} handleClose={handleClose} title={`Case ${data?.id}`}>
+    <AppDialog
+      open={open}
+      handleClose={handleClose}
+      title={`Case ${caseDetails?.id}`}
+    >
       <div className="my-5 space-y-5 px-4">
         <div className="history space-y-1">
           <Typography className="text-gray-600 text-xl font-semibold">
             History
           </Typography>
           <div className="flex items-center gap-2 flex-wrap">
-            {data?.history.map(
+            {caseDetails?.history.map(
               (item: string, index: React.Key | null | undefined) => (
                 <span key={index} className="text-green-600">
                   {item},
@@ -29,8 +48,8 @@ const ViewCaseModal = ({ open, handleClose, data }: {open:boolean, handleClose:a
           <Typography className="text-gray-600 text-xl font-semibold">
             Images
           </Typography>
-          <div className="flex items-center gap-3">
-            {data?.images.map((img: string) => (
+          <div className="flex items-center gap-3 w-full overflow-auto">
+            {caseDetails?.images.map((img: string) => (
               <Image
                 key={img}
                 src={
@@ -48,22 +67,22 @@ const ViewCaseModal = ({ open, handleClose, data }: {open:boolean, handleClose:a
           <Typography className="text-gray-600 text-xl font-semibold">
             Description
           </Typography>
-          <Typography>{data?.description}</Typography>
+          <Typography>{caseDetails?.description}</Typography>
         </div>
         <div className="case-comments space-y-1">
           <Typography className="text-gray-600 text-xl font-semibold">
             Comments
           </Typography>
-          <Typography>{data?.comments || "No Comments"}</Typography>
+          <Typography>{caseDetails?.comments || "No Comments"}</Typography>
         </div>
         <div className="flex justify-between item-center w-full md:w-5/6 md:mx-auto mt-5">
-          <Button
+          <LoadingButton
+            loading={loading}
+            title="Delete case"
             variant="outlined"
             className="border hover:border-app-red border-app-red text-app-red px-3 capitalize"
-            onClick={() => {}}
-          >
-            Delete Case
-          </Button>
+            onClick={() => deleteCaseMutate()}
+          />
           <Button
             variant="outlined"
             className="border hover:border-gray-700 border-gray-700 text-gray-700 px-5 capitalize"

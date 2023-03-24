@@ -75,7 +75,8 @@ const CasesPage: PageWithLayout = () => {
         <ViewCaseModal
           open={viewCase}
           handleClose={() => handleClose("viewCase")}
-          data={caseDetails}
+        caseDetails={caseDetails}
+        
         />
     </>
   );
