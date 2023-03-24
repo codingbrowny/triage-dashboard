@@ -48,7 +48,7 @@ const ViewCaseModal = ({
           <Typography className="text-gray-600 text-xl font-semibold">
             Images
           </Typography>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 w-full overflow-auto">
             {caseDetails?.images.map((img: string) => (
               <Image
                 key={img}
