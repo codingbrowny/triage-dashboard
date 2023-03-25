@@ -6,7 +6,6 @@ import { ChangeEvent, FormEvent, FormEventHandler, useState } from "react";
  */
 export const useForm = (callback?: Function) => {
   const [values, setValues] = useState({});
-
   /**
    * Form submit handler
    *
@@ -14,32 +13,32 @@ export const useForm = (callback?: Function) => {
    */
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if(callback) {
+    if (callback) {
       callback();
     }
   };
-
   /**
    * A function to update a field value when the input changes
    */
-  const inputChangeHandler = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-    event.persist();
-    if (event.target.type === "file") {
+  const inputChangeHandler = (
+    e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement | HTMLSelectElement>
+  ) => {
+    e.persist();
+
+    const { value, type, name } = e.target;
+
+    if (type === "file") {
       setValues((prev) => ({
         ...prev,
         //@ts-ignore
-        [event.target.name]: event.target.files!,
+        [name]: e.target.files!,
       }));
-      
-    } else {
-      setValues((prevState) => ({
-        ...prevState,
-        [event.target.name]: event.target.value,
-      }));
+      //@ts-ignore
+      numOfImages = e.target.files.length
     }
-    if (callback) {
-        callback();
-      }
+
+
+    setValues((prev) => ({ ...prev, [name]: value }));
   };
 
   return {
