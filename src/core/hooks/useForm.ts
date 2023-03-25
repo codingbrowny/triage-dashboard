@@ -41,9 +41,15 @@ export const useForm = (callback?: Function) => {
     setValues((prev) => ({ ...prev, [name]: value }));
   };
 
+  /**
+   * Callback to reset the form.
+   */
+  const resetForm = () => setValues({})
+
   return {
     values,
     handleSubmit,
+    resetForm,
     inputChangeHandler,
   };
 };
