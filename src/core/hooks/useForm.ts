@@ -33,8 +33,6 @@ export const useForm = (callback?: Function) => {
         //@ts-ignore
         [name]: [e.target.files!],
       }));
-      //@ts-ignore
-      numOfImages = e.target.files.length
     }
 
 
