@@ -5,7 +5,7 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 
 type SnackbarType = {
-  open: () => boolean | boolean;
+  open: (() => boolean) | boolean;
   message?: React.ReactNode;
 };
 
