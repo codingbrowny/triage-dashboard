@@ -3,7 +3,7 @@ import { ChangeEventHandler, useState } from "react";
 export const useHistory = () => {
   const [history, setHistory] = useState<string[]>([]);
 
-  const handleHistoryChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+  const handleHistoryChang: ChangeEventHandler<HTMLInputElement> = (e) => {
     // Add history if not exist
     if (e.target.checked) {
       setHistory((prev) => {
@@ -22,6 +22,6 @@ export const useHistory = () => {
 
   return {
     history,
-    handleHistoryChange,
+    handleHistoryChang,
   };
 };
