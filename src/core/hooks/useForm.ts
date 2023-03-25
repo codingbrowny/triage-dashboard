@@ -31,7 +31,7 @@ export const useForm = (callback?: Function) => {
       setValues((prev) => ({
         ...prev,
         //@ts-ignore
-        [name]: e.target.files!,
+        [name]: [e.target.files!],
       }));
       //@ts-ignore
       numOfImages = e.target.files.length
