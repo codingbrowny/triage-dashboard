@@ -18,19 +18,16 @@ interface DataGridInterface {
   tableHeader: GridColDef[];
   /** 
    * If specified, the reviews section of the table is rendered with the review number.
-   * 
    * **ONLY** use for table with reviews section.
    * */
   hasReviewCount?: boolean
   /**
    * Determins the number of data to show per table page
-   * 
    * default **10**
    */
   pageSize?: number;
   /**
    * Indicates whether review message is shown or not.
-   * 
    * **ONLY** use for table with reviews section.
    */
   hasReviewMessage?: boolean;
