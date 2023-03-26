@@ -3,15 +3,9 @@ import {
   DataGrid,
   GridColDef,
   GridEventListener,
-  gridPageCountSelector,
-  gridPageSelector,
-  useGridApiContext,
   useGridApiRef,
-  useGridSelector,
 } from "@mui/x-data-grid";
-import { Pagination } from "@mui/material";
 import RenderDataCells, {ActionType} from "../../utils/data-grid/data-table-fns";
-import EmptyBox from "../../utils/images/empty-box.png"
 import ExpandLessOutlinedIcon from "@mui/icons-material/ExpandLessOutlined";
 import ExpandMoreOutlinedIcon from "@mui/icons-material/ExpandMoreOutlined";
 import Image from "next/image"
@@ -72,7 +66,12 @@ const DataTable = ({ tableHeader, data, actions, onRowClick, pageSize = 10, load
 
   const EmptyDataOverlay = () => (
     <div className="flex flex-col justify-center items-center h-full">
-      <Image src={EmptyBox} width={70} height={70} alt="no data" />
+      <Image
+        src={"/images/empty-box.png"}
+        width={70}
+        height={70}
+        alt="no data"
+      />
       <span>No Data</span>
     </div>
   );
