@@ -4,7 +4,6 @@ import { useMutation } from "@apollo/client";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Image from "next/image";
-import React from "react";
 import { LoadingButton } from "..";
 import AppDialog from "../dialog";
 
@@ -18,7 +17,7 @@ const ViewCaseModal = ({
   caseDetails: any;
   }) => {
   // Delete case mutation
-  const [deleteCaseMutate, { loading, data }] = useMutation(DeleteCase, {
+  const [deleteCaseMutate, { loading, data, error }] = useMutation(DeleteCase, {
     variables: { id: caseDetails?.id },
     refetchQueries: [{ query: AllCases }],
   });
@@ -48,19 +47,23 @@ const ViewCaseModal = ({
           <Typography className="text-gray-600 text-xl font-semibold">
             Images
           </Typography>
-          <div className="flex items-center gap-3 w-full overflow-auto">
-            {caseDetails?.images.map((img: string) => (
-              <Image
-                key={img}
-                src={
-                  "https://images.unsplash.com/photo-1550792436-181701c71f63?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
-                }
-                height={150}
-                width={120}
-                alt={""}
-                className="object-cover rounded-md hover:shadow-lg"
-              />
-            ))}
+          <div className="relative flex items-center gap-3 w-full overflow-auto">
+            {!caseDetails?.images || caseDetails?.iages?.length === 0 ? (
+              <span className="text-app-yellow ">No images</span>
+            ) : (
+              caseDetails?.images.map((img: string) => (
+                <div key={img} className="relative w-[120px] h-[150px]">
+                  <Image
+                    src={img}
+                    height={150}
+                    width={120}
+                    alt={""}
+                    className="object-cover rounded-md hover:shadow-lg min-h-full"
+                    style={{ width: "auto", height: "auto" }}
+                  />
+                </div>
+              ))
+            )}
           </div>
         </div>
         <div className="case-descriptions space-y-1">
@@ -88,7 +91,7 @@ const ViewCaseModal = ({
             className="border hover:border-gray-700 border-gray-700 text-gray-700 px-5 capitalize"
             onClick={handleClose}
           >
-            Cancel
+            Close
           </Button>
         </div>
       </div>
