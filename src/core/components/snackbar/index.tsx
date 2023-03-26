@@ -1,27 +1,24 @@
 import * as React from "react";
-import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 
 type SnackbarType = {
-  open: (() => boolean) | boolean;
-  message?: React.ReactNode;
+  open: boolean;
   children?: React.ReactElement<any, any>;
+  onClose: Function
 };
 
-export default function MySnackbar({ open, message, children }: SnackbarType) {
-  const [autoClose, setAutoClose] = React.useState<boolean>(open);
+export default function MySnackbar({ open, children, onClose }: SnackbarType) {
 
   const handleClose = (
     event: React.SyntheticEvent | Event,
-    reason?: string
+    reason?: string,
   ) => {
     if (reason === "clickaway") {
       return;
     }
-
-    setAutoClose(false);
+   onClose()
   };
 
   const action = (
@@ -32,7 +29,7 @@ export default function MySnackbar({ open, message, children }: SnackbarType) {
         color="inherit"
         onClick={handleClose}
       >
-        <CloseIcon fontSize="small" />
+        <CloseIcon fontSize="small" color="inherit" />
       </IconButton>
     </React.Fragment>
   );
@@ -40,11 +37,10 @@ export default function MySnackbar({ open, message, children }: SnackbarType) {
   return (
     <div>
       <Snackbar
-        open={autoClose}
-        autoHideDuration={6000}
+        open={open}
+        autoHideDuration={5000}
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
         onClose={handleClose}
-        message={message}
         action={action}
       >
         { children }
