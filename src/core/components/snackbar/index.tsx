@@ -7,9 +7,10 @@ import CloseIcon from "@mui/icons-material/Close";
 type SnackbarType = {
   open: (() => boolean) | boolean;
   message?: React.ReactNode;
+  children?: React.ReactElement<any, any>;
 };
 
-export default function MySnackbar({ open, message }: SnackbarType) {
+export default function MySnackbar({ open, message, children }: SnackbarType) {
   const [autoClose, setAutoClose] = React.useState<boolean>(open);
 
   const handleClose = (
@@ -40,12 +41,14 @@ export default function MySnackbar({ open, message }: SnackbarType) {
     <div>
       <Snackbar
         open={autoClose}
-        autoHideDuration={3000}
+        autoHideDuration={6000}
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
         onClose={handleClose}
         message={message}
         action={action}
-      />
+      >
+        { children }
+      </Snackbar>
     </div>
   );
 }
