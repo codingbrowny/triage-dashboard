@@ -51,7 +51,7 @@ const DeleteDoctorModal = ({
               variant="outlined"
               loading={loading}
               className="border hover:border-app-red border-app-red text-app-red"
-              onClick={() =>setAlert(true) }
+              onClick={() =>confirmDelete() }
             ></LoadingButton>
             <Button
               variant="outlined"
