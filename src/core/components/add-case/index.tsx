@@ -1,27 +1,66 @@
 import React from "react";
 import { DialogInterface } from "@/types/interfaces";
 import CameraAltOutlinedIcon from "@mui/icons-material/CameraAltOutlined";
-import { AppDialog } from "..";
+import { AppDialog, LoadingButton } from "..";
 import { CaseHistory } from "@/core/utils/data";
 import Button from "@mui/material/Button";
-import { useForm } from "@/core/hooks/useForm";
+import { useMutation } from "@apollo/client";
+import { CreateNewCase } from "@/core/graphql/mutations";
+import { AllCases } from "@/core/graphql/queries/cases";
+import { useForm } from "@/core/hooks";
 
 const AddCaseModal = ({ open, handleClose }: DialogInterface) => {
-    const {values, handleSubmit, inputChangeHandler} = useForm()
+  const { values, inputChangeHandler, handleSubmit ,handleHistoryChange } = useForm(()=>addCaseMutateHandler());
+
+  const [addCaseMutateHandler, { loading, error, data }] = useMutation(
+    CreateNewCase,
+    { variables: { input: values }, refetchQueries: [{ query: AllCases }] }
+  );
+
   return (
     <AppDialog open={open} handleClose={handleClose} title="Add Case">
-      <form action="" className="my-5 space-y-4">
+      <form className="my-5 space-y-4" onSubmit={handleSubmit}>
         <div className="md:flex md:justify-start items-center text-gray-600 gap-4">
           <label htmlFor="name" className="font-semibold md:basis-1/4">
             Doctor&apos;s Name:
           </label>
           <input
             type="text"
-            name="name"
+            name="postedBy"
             autoComplete="off"
             onChange={inputChangeHandler}
             className="border rounded-md border-gray-600 px-2 py-1 outline-none block"
           />
+        </div>
+        <div className="md:flex md:justify-start items-center text-gray-600 gap-4">
+          <label htmlFor="age" className="font-semibold md:basis-1/4">
+            Age:
+          </label>
+          <input
+            type="text"
+            name="age"
+            autoComplete="off"
+            onChange={inputChangeHandler}
+            className="border rounded-md border-gray-600 px-2 py-1 outline-none block"
+          />
+        </div>
+        <div className="md:flex md:justify-start items-center text-gray-600 gap-4">
+          <label htmlFor="sex" className="font-semibold md:basis-1/4">
+            Sex:
+          </label>
+          <select
+            className="border rounded-md border-gray-600 py-1 px-2 outline-none flex"
+            name="sex"
+            onChange={inputChangeHandler}
+            required
+            defaultValue={"male"}
+          >
+            <option className="italic" disabled>
+              select
+            </option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
         </div>
         {/* History Section */}
         <div className="md:flex md:justify-start items-center text-gray-600 gap-4">
@@ -29,19 +68,22 @@ const AddCaseModal = ({ open, handleClose }: DialogInterface) => {
             History:
           </label>
           <span className="border border-gray-600 p-3 gap-2 flex rounded-md flex-wrap w-full">
-            {CaseHistory.map((item, index)=>(
-                <div key={index} className="flex gap-1 items-center md:basis-1/3 box-border">
+            {CaseHistory.map((item: any, index) => (
+              <div
+                key={index}
+                className="flex gap-1 items-center md:basis-1/3 box-border"
+              >
                 <input
                   type="checkbox"
-                  name={item.for}
+                  aria-label="history"
                   id={item.for}
-                  onChange={inputChangeHandler}
-                  className="h-4 w-4 rounded-full accent-primary"
+                  value={item.name}
+                  onChange={handleHistoryChange}
+                  className="case-history h-4 w-4 rounded-full accent-primary"
                 />
-                <label htmlFor="hypertension">{item.name}</label>
+                <label htmlFor={item.for}>{item.name}</label>
               </div>
             ))}
-            
           </span>
         </div>
         {/* File Upload Button */}
@@ -58,20 +100,23 @@ const AddCaseModal = ({ open, handleClose }: DialogInterface) => {
             <span className="text-primary">
               <CameraAltOutlinedIcon className="w-7 h-7" />
             </span>
-          <input
-            type="file"
-            name="images"
-            id="case_images"
-            className="hidden"
-            multiple={true}
-            accept="image/*"
-            onChange={inputChangeHandler}
-          />
+            <input
+              type="file"
+              name="images"
+              id="case_images"
+              className="hidden"
+              multiple={true}
+              accept="image/*"
+              onChange={inputChangeHandler}
+            />
           </label>
         </div>
         {/* Description */}
         <div className="w-full md:flex md:justify-start md:items-center gap-4">
-          <label htmlFor="descripiton" className="text-gray-600 font-semibold md:basis-1/4">
+          <label
+            htmlFor="descripiton"
+            className="text-gray-600 font-semibold md:basis-1/4"
+          >
             Description:
           </label>
           <textarea
@@ -84,12 +129,14 @@ const AddCaseModal = ({ open, handleClose }: DialogInterface) => {
           />
         </div>
         <div className="btns flex justify-between items-center w-full md:w-5/6 mx-auto mt-4">
-          <Button
+          <LoadingButton
             variant="outlined"
+            loading={loading}
+            title="Add"
+            type="submit"
+            onClick={() => console.log(values)}
             className="capitalize px-8 border border-green-500 hover:border-green-600 text-green-500 hover:text-green-600"
-          >
-            Add
-          </Button>
+          />
           <Button
             variant="outlined"
             className="capitalize px-8 border hover:border-gray-700 border-gray-700 text-gray-700"
