@@ -4,7 +4,6 @@ import Typography from "@mui/material/Typography";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import HealthCareImage from "../../../core/utils/images/healthcare-personnel.png";
 
 const SignInPage = () => {
   const { error, callbackUrl } = useRouter().query;
@@ -62,14 +61,14 @@ const SignInPage = () => {
           </div>
         </form>
         <Image
-          src={HealthCareImage}
+          src={"/images/healthcare-personnel.png"}
           className="object-cover md:hidden"
           alt="Healthcare Personnel"
         />
       </div>
       <div className="w-full h-full hidden md:flex flex-col justify-end items-center">
         <Image
-          src={HealthCareImage}
+          src={"/images/healthcare-personnel.png"}
           className="object-cover"
           alt="Healthcare Personnel"
         />
