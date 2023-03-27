@@ -54,6 +54,9 @@ const ViewCaseModal = ({
               History
             </Typography>
             <div className="flex items-center gap-2 flex-wrap">
+              <span className="text-app-blue">
+                {(caseDetails?.age + " "+ caseDetails?.sex)}
+              </span>
               {caseDetails?.history.map(
                 (item: string, index: React.Key | null | undefined) => (
                   <span key={index} className="text-green-600">
