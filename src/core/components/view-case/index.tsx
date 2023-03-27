@@ -22,8 +22,15 @@ const ViewCaseModal = ({
   const [deleteCaseMutate, { loading, data, error }] = useMutation(DeleteCase, {
     variables: { id: caseDetails?.id },
     refetchQueries: [{ query: AllCases }],
-    onCompleted: ()=> setShowToast(true)
+    onCompleted: handleFinishedMutation
   });
+
+  function handleFinishedMutation(data:any) {
+    if (data && !error) {
+      setShowToast(true)
+      handleClose()
+    }
+  }
 
   const [showToast, setShowToast] = React.useState(false)
   
@@ -70,7 +77,7 @@ const ViewCaseModal = ({
             <Typography className="text-gray-600 text-xl font-semibold">
               Images
             </Typography>
-            <div className="relative flex items-center gap-3 w-full overflow-auto">
+            <div className="relative flex items-center gap-3 w-full overflow-auto overflow-y-hidden">
               {!caseDetails?.images || caseDetails?.iages?.length === 0 ? (
                 <span className="text-app-yellow ">No images</span>
               ) : (
