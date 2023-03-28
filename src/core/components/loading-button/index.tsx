@@ -8,7 +8,7 @@ interface LoadingButtonInterface extends ButtonProps {
    */
   loading?: boolean;
   /** Button title */
-  title: string;
+  title?: string;
 }
 
 const LoadingButton: React.FC<LoadingButtonInterface> = ({
@@ -21,8 +21,8 @@ const LoadingButton: React.FC<LoadingButtonInterface> = ({
       className={props.className ? props.className : "flex items-center gap-3"}
       {...props}
       disabled={loading}
+      startIcon={loading?<CircularProgress color="inherit" size={20} className="px-0 mx-0" /> : props.startIcon}
     >
-      {loading && <CircularProgress color="inherit" size={20} />}
       <span className={loading? "ml-2": "" }>{title}</span>
     </Button>
   );
