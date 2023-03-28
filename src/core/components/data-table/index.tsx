@@ -1,65 +1,30 @@
 import React from "react";
+import Image from "next/image";
 import {
   DataGrid,
-  GridColDef,
-  GridEventListener,
+  GridFooter,
+  GridFooterContainer,
   useGridApiRef,
 } from "@mui/x-data-grid";
-import RenderDataCells, {ActionType} from "../../utils/data-grid/data-table-fns";
+import { renderTableHead } from "../../utils/data-grid/data-table-fns";
 import ExpandLessOutlinedIcon from "@mui/icons-material/ExpandLessOutlined";
 import ExpandMoreOutlinedIcon from "@mui/icons-material/ExpandMoreOutlined";
-import Image from "next/image"
 import TablePagination from "../table-pagination";
+import { DataGridInterface } from "@/core/utils/data-grid/interface";
+import { LoadingButton } from "..";
+import { CircularProgress, LinearProgress } from "@mui/material";
+import RefreshOutlinedIcon from "@mui/icons-material/RefreshOutlined";
 
-interface DataGridInterface {
-  /** The data to show on the table */
-  data: Object[];
-  /** The table header */
-  tableHeader: GridColDef[];
-  /** 
-   * If specified, the reviews section of the table is rendered with the review number.
-   * **ONLY** use for table with reviews section.
-   * */
-  hasReviewCount?: boolean
-  /**
-   * Determins the number of data to show per table page
-   * default **10**
-   */
-  pageSize?: number;
-  /**
-   * Indicates whether review message is shown or not.
-   * **ONLY** use for table with reviews section.
-   */
-  hasReviewMessage?: boolean;
-  props?: any
-  /**
-   * The actions to perform on the cell data
-   */
-  actions: ActionType,
-  /**
-   * Callback fired when a row is clicked. 
-   * Not called if the target clicked is an interactive element added by the built-in columns.
-   */
-  onRowClick?: GridEventListener<"rowClick">
-  /**
-   * Indicated the loading state of the table
-   */
-  loading?: boolean
-}
-
-const DataTable = ({ tableHeader, data, actions, onRowClick, pageSize = 10, loading=false }: DataGridInterface) => {
-  const apiRef = useGridApiRef()
-  // Setting the Table Header
-  const renderTableHead = () => {
-    let tableHead: GridColDef[] = [];
-    for (let item of tableHeader) {
-      // Setting the renderCell on the product field
-      const data = RenderDataCells({item, actions});
-
-      tableHead.push({ ...data, flex: 1, headerClassName: "bg-primary font-bold text-[16px] text-white font-bold" });
-    }
-    return tableHead;
-  };
+const DataTable = ({
+  tableHeader,
+  data,
+  actions,
+  onRowClick,
+  pageSize = 10,
+  loading = false,
+}: DataGridInterface) => {
+  const apiRef = useGridApiRef();
+  const [reload, setReload] = React.useState(false);
 
   const EmptyDataOverlay = () => (
     <div className="flex flex-col justify-center items-center h-full">
@@ -73,12 +38,40 @@ const DataTable = ({ tableHeader, data, actions, onRowClick, pageSize = 10, load
     </div>
   );
 
+  function CustomFooter() {
+    return (
+      <GridFooterContainer className="bg-slate-300/25">
+        {/* Add what you want here */}
+        <LoadingButton
+          title={reload ? "Reloading" : "Refresh"}
+          loading={reload}
+          startIcon={<RefreshOutlinedIcon />}
+          className="capitalize mx-4 text-sm"
+          onClick={() => setReload(true)}
+        />
+        <GridFooter
+          sx={{
+            border: "none", // To delete double border.
+          }}
+        />
+      </GridFooterContainer>
+    );
+  }
+
+  const DefaultProgress = () => {
+    return (
+      <div className="relative w-full h-full flex flex-col items-center justify-center">
+        <CircularProgress />
+      </div>
+    );
+  };
+
   return (
     <div className="relative min-w-full h-fit max-h-full">
       <DataGrid
         sx={{ width: "100%", backgroundColor: "white", maxHeight: "100%" }}
         apiRef={apiRef}
-        columns={renderTableHead()}
+        columns={renderTableHead({ tableHeader, actions })}
         rows={data}
         editMode={"cell"}
         autoHeight={true}
@@ -90,6 +83,8 @@ const DataTable = ({ tableHeader, data, actions, onRowClick, pageSize = 10, load
         slots={{
           pagination: TablePagination,
           noRowsOverlay: EmptyDataOverlay,
+          footer: CustomFooter,
+          loadingOverlay: reload ? LinearProgress : DefaultProgress,
           columnSortedAscendingIcon(props) {
             return <ExpandMoreOutlinedIcon />;
           },
