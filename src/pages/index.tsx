@@ -5,15 +5,14 @@ import { AreaChart, PageTitle, StatHeader } from "@/core/components";
 import { Box, Tab, Tabs } from "@mui/material";
 import { A11yProps } from "@/core/utils/fns";
 
-
 const Index: PageWithLayout = () => {
   const [value, setValue] = React.useState(0);
   //Tab Change Handler
-   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-     setValue(newValue);
-   };
+  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+    setValue(newValue);
+  };
   return (
-    <div className="text-black">
+    <>
       <StatHeader />
       <div className="bg-white h-full w-full mt-5 p-3">
         <PageTitle title="Dashboard">
@@ -32,7 +31,7 @@ const Index: PageWithLayout = () => {
         </PageTitle>
         <AreaChart />
       </div>
-    </div>
+    </>
   );
 };
 
