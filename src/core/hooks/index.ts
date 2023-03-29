@@ -1,2 +1,2 @@
 export {useForm} from "./useForm"
-export {useHistory} from "./useHistory"
+export {useCaseImageUpload} from "./useCaseImages"
