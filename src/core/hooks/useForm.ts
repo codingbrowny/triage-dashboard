@@ -1,10 +1,11 @@
-import { ChangeEvent, ChangeEventHandler, FormEvent, FormEventHandler, useState } from "react";
+import { ChangeEvent, ChangeEventHandler, FormEvent, useState } from "react";
 
 /**
- *
- * @param callback Callback function
+ * useForm hook for forms
+ * @param callback Executed in response to the form submit event. This function should be your implementation of what you do with the form data.
+
  */
-export const useForm = (callback?: Function) => {
+export const useForm = (callback?:Function) => {
   const [values, setValues] = useState({});
   const [history, setHistory] = useState<string[]>([]);
 
@@ -24,12 +25,14 @@ export const useForm = (callback?: Function) => {
       });
     }
   };
+
   /**
-   * Form submit handler
-   *
-   * Executes the `callback` passed to the useForm hook
+   * Callback fired when the form is submitted.
+   * @param event Form submit event.
    */
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const formSubmitHandler = (
+    event: FormEvent<HTMLFormElement>,
+  ) => {
     event.preventDefault();
     if (callback) {
       callback();
@@ -61,23 +64,22 @@ export const useForm = (callback?: Function) => {
       }));
     }
 
-     setValues((prev) => ({
-       ...prev,
-       history,
-     }));
+    setValues((prev) => ({
+      ...prev,
+      history,
+    }));
   };
-
 
   /**
    * Callback to reset the form.
    */
-  const resetForm = () => setValues({})
+  const resetForm = () => setValues({});
 
   return {
     values,
-    handleSubmit,
+    formSubmitHandler,
     resetForm,
     inputChangeHandler,
-    handleHistoryChange
+    handleHistoryChange,
   };
 };
