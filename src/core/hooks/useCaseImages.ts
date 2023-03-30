@@ -39,9 +39,6 @@ export const useCaseImageUpload = () => {
       const responses = await Promise.all(promise);
       const imageUrls: any[] = [];
       responses.forEach((response) => {
-        console.log(base64Data);
-        
-        //@ts-ignore
         imageUrls.push(response.data.url);
       });
       return imageUrls;
