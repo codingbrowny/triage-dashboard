@@ -9,12 +9,14 @@ import { CreateNewCase } from "@/core/graphql/mutations";
 import { AllCases } from "@/core/graphql/queries/cases";
 import { useForm } from "@/core/hooks";
 import { Alert } from "@mui/material";
+import { useCaseImageUpload } from "@/core/hooks/useCaseImages";
 
 const AddCaseModal = ({ open, handleClose }: DialogInterface) => {
-
-  const { values, inputChangeHandler, handleHistoryChange } = useForm();
   const [showToast, setShowToast] = React.useState(false);
-  const formRef = React.useRef(null);
+  const [showLoading, setShowLoading] = React.useState(false);
+  const { convertToBase64, uploadImages, base64List, resetList } = useCaseImageUpload();
+  const { values, inputChangeHandler, handleHistoryChange, resetForm } =
+    useForm();
 
   const [createCase, { loading, error, data }] = useMutation(CreateNewCase, {
     variables: { input: values },
@@ -22,14 +24,26 @@ const AddCaseModal = ({ open, handleClose }: DialogInterface) => {
     onCompleted: handleFinishedMutation,
   });
 
-// fired after successful mutation
+  // fired after successful mutation
   function handleFinishedMutation(data: any) {
     if (data && !error) {
-      setShowToast(true)
-      //@ts-ignore
-      formRef.current.reset()
+      setShowToast(true);
     }
+    resetForm();
+    setShowLoading(false);
   }
+
+  const successfulUpload = (res: string[] | undefined) => {
+    resetList()
+    createCase({ variables: { input: { ...values, images: res } } });
+  };
+  const uploadError = (error: any) => {
+    throw new Error("Could not upload files");
+  };
+  const executeMutation = () => {
+    setShowLoading(true);
+    uploadImages().then(successfulUpload, uploadError);
+  };
 
   return (
     <React.Fragment>
@@ -39,7 +53,7 @@ const AddCaseModal = ({ open, handleClose }: DialogInterface) => {
         </Alert>
       </MySnackbar>
       <AppDialog open={open} handleClose={handleClose} title="Add Case">
-        <form className="my-5 space-y-4" ref={formRef}>
+        <form method="Post" className="my-5 space-y-4">
           <div className="md:flex md:justify-start items-center text-gray-600 gap-4">
             <label htmlFor="name" className="font-semibold md:basis-1/4">
               Doctor&apos;s Name:
@@ -57,7 +71,8 @@ const AddCaseModal = ({ open, handleClose }: DialogInterface) => {
               Age:
             </label>
             <input
-              type="text"
+              type="number"
+              min={1}
               name="age"
               autoComplete="off"
               onChange={inputChangeHandler}
@@ -103,7 +118,7 @@ const AddCaseModal = ({ open, handleClose }: DialogInterface) => {
               ))}
             </span>
           </div>
-          {/* File Upload Button */}
+          {/* Images Selection */}
           <div className="md:flex md:justify-start items-center text-gray-600 gap-4">
             <label htmlFor="images" className="font-semibold md:basis-1/4">
               Images:
@@ -117,6 +132,7 @@ const AddCaseModal = ({ open, handleClose }: DialogInterface) => {
               <span className="text-primary">
                 <CameraAltOutlinedIcon className="w-7 h-7" />
               </span>
+              {base64List.length && <span>{base64List.length}</span>}
               <input
                 type="file"
                 name="images"
@@ -124,7 +140,8 @@ const AddCaseModal = ({ open, handleClose }: DialogInterface) => {
                 className="hidden"
                 multiple={true}
                 accept="image/*"
-                onChange={inputChangeHandler}
+                //@ts-ignore
+                onChange={convertToBase64}
               />
             </label>
           </div>
@@ -148,16 +165,18 @@ const AddCaseModal = ({ open, handleClose }: DialogInterface) => {
           <div className="btns flex justify-between items-center w-full md:w-5/6 mx-auto mt-4">
             <LoadingButton
               variant="outlined"
-              loading={loading}
+              loading={loading || showLoading}
               title="Add"
-              type="submit"
-              onClick={() => createCase()}
+              onClick={() => executeMutation()}
               className="capitalize px-8 border border-green-500 hover:border-green-600 text-green-500 hover:text-green-600"
             />
             <Button
               variant="outlined"
               className="capitalize px-8 border hover:border-gray-700 border-gray-700 text-gray-700"
-              onClick={handleClose}
+              onClick={() => {
+                resetForm();
+                handleClose();
+              }}
             >
               Close
             </Button>
