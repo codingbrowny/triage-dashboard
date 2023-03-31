@@ -15,8 +15,11 @@ import { AllCases } from "@/core/graphql/queries/cases";
 
 const CasesPage: PageWithLayout = () => {
   //Get Cases Data
-  const { loading, error, data, previousData } = useQuery(AllCases)
-  
+  const { loading, error, data, previousData, refetch, networkStatus } =
+    useQuery(AllCases, {
+      notifyOnNetworkStatusChange: true,
+    });
+
   const { Column } = CasesData;
   const [caseDetails, setCaseDetails] = useState();
   const [{ addCase, viewCase }, setOpenModal] = useState({
@@ -28,11 +31,7 @@ const CasesPage: PageWithLayout = () => {
     setOpenModal((prev) => ({ ...prev, [modal]: ![modal] }));
 
   //Table Row CLick - Open Case Details Modals
-  const onRowClick = (
-    params: GridRowParams,
-    event: MuiEvent<React.MouseEvent>,
-    details: GridCallbackDetails
-  ) => {
+  const onRowClick = (params: GridRowParams) => {
     setCaseDetails(params.row);
     setOpenModal((prev) => ({ ...prev, viewCase: !viewCase }));
   };
@@ -53,31 +52,25 @@ const CasesPage: PageWithLayout = () => {
         </PageTitle>
         <Box className="p-2 sm:p-3 md:p-5">
           <DataTable
-            data={data? data?.cases: previousData ? previousData?.cases: []}
+            data={data ? data?.cases : previousData ? previousData?.cases : []}
             tableHeader={Column}
-            onRowClick={onRowClick}
             loading={loading}
             pageSize={12}
             actions={{
-              onEditData: undefined,
-              onRenewSubscription: undefined,
-              onDeleteData: undefined,
+              onRowClick: onRowClick,
             }}
+            footerProps={{ onRefresh: () => refetch() }}
           />
         </Box>
       </div>
-        {/* Add Case Modal */}
-        <AddCaseModal
-          open={addCase}
-          handleClose={() => handleClose("addCase")}
-        />
-        {/* View Case Modal */}
-        <ViewCaseModal
-          open={viewCase}
-          handleClose={() => handleClose("viewCase")}
+      {/* Add Case Modal */}
+      <AddCaseModal open={addCase} handleClose={() => handleClose("addCase")} />
+      {/* View Case Modal */}
+      <ViewCaseModal
+        open={viewCase}
+        handleClose={() => handleClose("viewCase")}
         caseDetails={caseDetails}
-        
-        />
+      />
     </>
   );
 };
