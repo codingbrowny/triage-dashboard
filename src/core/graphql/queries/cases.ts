@@ -37,3 +37,13 @@ export const SingleCase = gql`
     }
   }
 `;
+
+export const CASE_CHAT_QUERY = gql`
+  query CaseChats($caseId: String!) {
+    caseChats(caseId: $caseId) {
+      postedBy
+      message
+      createdAt
+    }
+  }
+`;
