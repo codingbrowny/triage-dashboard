@@ -1,13 +1,12 @@
-import { DeleteCase } from "@/core/graphql/mutations";
-import { AllCases } from "@/core/graphql/queries/cases";
-import { useMutation } from "@apollo/client";
+import React from "react";
+import Image from "next/image";
 import { Alert } from "@mui/material";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import Image from "next/image";
-import React from "react";
-import { LoadingButton, MySnackbar } from "..";
-import AppDialog from "../dialog";
+import { DeleteCase } from "@/core/graphql/mutations";
+import { useLazyQuery, useMutation } from "@apollo/client";
+import { AllCases, CASE_CHAT_QUERY } from "@/core/graphql/queries/cases";
+import { CaseChat, LoadingButton, MySnackbar, AppDialog } from "..";
 
 const ViewCaseModal = ({
   open,
@@ -17,23 +16,31 @@ const ViewCaseModal = ({
   open: boolean;
   handleClose: any;
   caseDetails: any;
-  }) => {
+}) => {
+  const [showToast, setShowToast] = React.useState(false);
   // Delete case mutation
   const [deleteCaseMutate, { loading, data, error }] = useMutation(DeleteCase, {
     variables: { id: caseDetails?.id },
     refetchQueries: [{ query: AllCases }],
-    onCompleted: handleFinishedMutation
+    onCompleted: handleFinishedMutation,
   });
 
-  function handleFinishedMutation(data:any) {
+  const [getCaseChat, { data: chats, error: chatError }] =
+    useLazyQuery(CASE_CHAT_QUERY);
+
+  function handleFinishedMutation(data: any) {
     if (data && !error) {
-      setShowToast(true)
-      handleClose()
+      setShowToast(true);
+      handleClose();
     }
   }
 
-  const [showToast, setShowToast] = React.useState(false)
-  
+  React.useEffect(() => {
+    if (caseDetails) {
+      getCaseChat({ variables: { caseId: caseDetails?.id } });
+    }
+  }, [caseDetails, getCaseChat]);
+
   return (
     <React.Fragment>
       {/* Action taost */}
@@ -62,7 +69,7 @@ const ViewCaseModal = ({
             </Typography>
             <div className="flex items-center gap-2 flex-wrap">
               <span className="text-app-blue">
-                {(caseDetails?.age + " "+ caseDetails?.sex)}
+                {caseDetails?.age + " " + caseDetails?.sex}
               </span>
               {caseDetails?.history.map(
                 (item: string, index: React.Key | null | undefined) => (
@@ -102,11 +109,17 @@ const ViewCaseModal = ({
             </Typography>
             <Typography>{caseDetails?.description}</Typography>
           </div>
-          <div className="case-comments space-y-1">
+          <div className="case-comments space-y-2">
             <Typography className="text-gray-600 text-xl font-semibold">
               Comments
             </Typography>
-            <Typography>{caseDetails?.comments || "No Comments"}</Typography>
+            {chats?.caseChats ? (
+              chats.caseChats.map((item: any) => (
+                <CaseChat key={item.id} message={item.message} />
+              ))
+            ) : (
+              <Typography>No Comments</Typography>
+            )}
           </div>
           <div className="flex justify-between item-center w-full md:w-5/6 md:mx-auto mt-5">
             <LoadingButton
