@@ -1,26 +1,28 @@
 import axios from "axios";
-import { ChangeEventHandler, useState } from "react";
+import { ChangeEvent, useState } from "react";
 
 export const useCaseImageUpload = () => {
-  const [base64Data, setBase64Data] = useState<any[]>([]);
-  let numOfImages = 0;
-
+  const [base64List, setBase64List] = useState<any[]>([]);
+// Reset the list
+  const resetList = () => setBase64List([]);
   //
-  const convertToBase64 = (files: FileList) => {
+  const convertToBase64 = (e: ChangeEvent<HTMLInputElement>) => {
     try {
-      Array.from(files).forEach(async (blob) => {
-        const base64Promise = await new Promise((resolve, reject) => {
-          //Instantiate a new File reader
-          const reader = new FileReader();
-          reader.readAsDataURL(blob);
-          reader.onload = () => resolve(reader.result as string);
-          reader.onerror = reject;
-        });
+      const { files } = e.target;
+      if (files?.length) {
+        Array.from(files).forEach(async (blob) => {
+          const base64Promise = await new Promise((resolve, reject) => {
+            //Instantiate a new File reader
+            const reader = new FileReader();
+            reader.readAsDataURL(blob);
+            reader.onload = () => resolve(reader.result as string);
+            reader.onerror = reject;
+          });
 
-        const { name } = blob;
-        setBase64Data((prev) => [...prev, { name, base64: base64Promise }]);
-      });
-      numOfImages = base64Data.length;
+          const { name } = blob;
+          setBase64List((prev) => [...prev, { name, base64: base64Promise }]);
+        });
+      }
     } catch (error) {
       console.error(error);
     }
@@ -28,7 +30,7 @@ export const useCaseImageUpload = () => {
 
   const uploadImages = async () => {
     try {
-      const promise = base64Data.map((item) => {
+      const promise = base64List.map((item) => {
         const { name, base64 } = item;
         return axios.post("https://case-consult-dev.bashiru1.com/upload", {
           fileName: name,
@@ -50,8 +52,7 @@ export const useCaseImageUpload = () => {
   return {
     convertToBase64,
     uploadImages,
-    numOfImages,
-    
+    base64List,
+    resetList
   };
-
 };
