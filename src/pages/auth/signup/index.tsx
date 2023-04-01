@@ -18,11 +18,6 @@ const SignUp = () => {
           height={50}
         />
         <form className="space-y-7 w-[95%] sm:w-[90%] md:w-4/5 mx-auto mb-auto bg-white/20 rounded-xl py-10 shadow-xl">
-          {/* <div className="w-[80%] mx-auto bg-white/60 rounded p-4 transition-all duration-75">
-              <Typography className="text-2xl text-center transition-all duration-150 font-semibold">
-                Sign Up
-              </Typography>
-            </div> */}
           <input
             type="text"
             onChange={inputChangeHandler}
@@ -67,14 +62,14 @@ const SignUp = () => {
           </div>
         </form>
         <Image
-          src={HealthCareImage}
+          src={"/images/healthcare-personnel.png"}
           className="object-cover md:hidden"
           alt="Healthcare Personnel"
         />
       </div>
       <div className="w-full h-full hidden md:flex flex-col justify-end items-center">
         <Image
-          src={HealthCareImage}
+          src={"/images/healthcare-personnel.png"}
           className="object-cover"
           alt="Healthcare Personnel"
         />

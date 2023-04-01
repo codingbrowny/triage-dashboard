@@ -48,7 +48,7 @@ const data = {
   datasets: [
     {
       label: "This Month",
-      data: [43, 89, 86, 105, 75, 113, 98, 45, 69, 120, 101, 82],
+      data: [63, 89, 86, 105, 75, 83, 78, 55, 69, 46, 81, 89],
       backgroundColor: "rgba(240, 165, 0, 0.05)",
       borderColor: "rgba(0, 0, 0, 0.5)",
     },

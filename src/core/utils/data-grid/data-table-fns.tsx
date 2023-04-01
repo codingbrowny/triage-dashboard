@@ -1,30 +1,16 @@
 import { TableActionMenu } from "@/core/components";
 import { Typography } from "@mui/material";
 import { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
+import { ActionType } from "./interface";
 
-export type ActionType = {
-  /**
-   * Callback fired when edit button is clicked
-   */
-  onEditData?: Function;
-  /**
-   * Callback fired when renew subscription button is clicked
-   */
-  onRenewSubscription?: Function;
-  /**
-   * Callback fired when delete button is clicked
-   */
-  onDeleteData?: Function;
-};
-
-/** A function that handles how each cell in the data table is rendered.
- * It returns a modified copy of the actual data from the server
- */
 interface RenderCellInterface {
   item: GridColDef;
   actions: ActionType;
 }
 
+/** A function that handles how each cell in the data table is rendered.
+ * It returns a modified copy of the actual data from the server
+ */
 export default function RenderDataCells({
   item,
   actions,
@@ -54,7 +40,7 @@ export default function RenderDataCells({
     item = {
       ...item,
       minWidth: 230,
-      maxWidth:280,
+      maxWidth: 280,
       renderCell(params: GridRenderCellParams) {
         return (
           <Typography className="w-full text-ellipsis overflow-hidden">
@@ -131,3 +117,25 @@ export default function RenderDataCells({
   }
   return item;
 }
+
+// Setting the Table Header
+export const renderTableHead = ({
+  tableHeader,
+  actions,
+}: {
+  tableHeader: GridColDef[];
+  actions: ActionType;
+}) => {
+  let tableHead: GridColDef[] = [];
+  for (let item of tableHeader) {
+    // Setting the renderCell on the product field
+    const data = RenderDataCells({ item, actions });
+
+    tableHead.push({
+      ...data,
+      flex: 1,
+      headerClassName: "bg-primary font-bold text-[16px] text-white font-bold",
+    });
+  }
+  return tableHead;
+};
