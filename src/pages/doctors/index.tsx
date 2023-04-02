@@ -21,12 +21,6 @@ import { AllDoctors } from "@/core/graphql/queries/doctors";
 const DoctorsPage: PageWithLayout = () => {
   const { loading, error, data, } = useQuery(AllDoctors);
 
-  const ALL_PHYSICIANS = data?.doctors.filter(
-    (doc: any) => doc.isPhysician === true
-  );
-  const ALL_DOCTORS = data?.doctors.filter(
-    (doc: any) => doc.isPhysician === false
-  );
 
   const { Column } = DoctorsData;
   const [value, setValue] = useState(0);
@@ -77,7 +71,7 @@ const DoctorsPage: PageWithLayout = () => {
         <Box className="p-2 sm:p-3 md:p-5">
           <TabPanel value={value} index={0}>
             <DataTable
-              data={ALL_DOCTORS || []}
+              data={data?.Doctors || []}
               tableHeader={Column}
               loading={loading}
               actions={{
@@ -89,7 +83,7 @@ const DoctorsPage: PageWithLayout = () => {
           </TabPanel>
           <TabPanel value={value} index={1}>
             <DataTable
-              data={ALL_PHYSICIANS || []}
+              data={data?.Physicians || []}
               tableHeader={Column}
               actions={{
                 onRowClick: onRowClick,
