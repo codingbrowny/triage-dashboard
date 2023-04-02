@@ -2,14 +2,23 @@ import { gql } from "@apollo/client";
 
 export const AllDoctors = gql`
   query AllDoctors {
-    doctors {
-      id
-      username
-      speciality
-      approved
-      isPhysician
-      mobile
+    Doctors: doctors(isPhysician: false) {
+      ...Details
     }
+    Physicians: doctors(isPhysician: true) {
+      ...Details
+    }
+  }
+
+  fragment Details on Doctor {
+    id
+    username
+    password
+    speciality
+    approved
+    passwordResetToken
+    passwordResetExpires
+    mobile
   }
 `;
 
