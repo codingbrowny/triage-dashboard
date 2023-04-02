@@ -30,7 +30,7 @@ const Layout = ({ children }: { children: ReactElement }) => {
   // Drawer handler
   const toggleDrawer = (event: React.KeyboardEvent | React.MouseEvent) => {
     if (
-      event?.type === "keydown" &&
+      event.type === "keydown" &&
       ((event as React.KeyboardEvent).key === "Tab" ||
         (event as React.KeyboardEvent).key === "Shift")
     ) {

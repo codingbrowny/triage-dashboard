@@ -31,7 +31,7 @@ export default function RenderDataCells({
       ...item,
       renderCell(params: GridRenderCellParams) {
         return (
-          <Typography className="text-green-500 w-full">{params.value}</Typography>
+          <Typography className="text-green-500">{params.value}</Typography>
         );
       },
     };
@@ -50,12 +50,12 @@ export default function RenderDataCells({
       },
     };
   }
-  if (item.field === "caseChatCount") {
+  if (item.field === "comments") {
     item = {
       ...item,
       renderCell(params: GridRenderCellParams) {
         return (
-          <Typography className="text-right px-2 w-full text-ellipsis overflow-hidden">
+          <Typography className="text-center w-full text-ellipsis overflow-hidden">
             {params.value}
           </Typography>
         );
@@ -106,13 +106,11 @@ export default function RenderDataCells({
       minWidth: 100,
       renderCell(params: GridRenderCellParams) {
         return (
-          <div className="w-full text-center">
-            <TableActionMenu
-              onEdit={onEditData}
-              onDelete={onDeleteData}
-              onRenew={onRenewSubscription}
-            />
-          </div>
+          <TableActionMenu
+            onEdit={onEditData}
+            onDelete={onDeleteData}
+            onRenew={onRenewSubscription}
+          />
         );
       },
     };

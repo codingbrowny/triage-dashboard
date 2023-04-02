@@ -6,7 +6,7 @@ import { useQuery } from "@apollo/client";
 
 const StatHeader = () => {
   const cases = useQuery(AllCases, { pollInterval: 5000, notifyOnNetworkStatusChange:true });
-  const allDoctors = useQuery(AllDoctors, { pollInterval: 5000, notifyOnNetworkStatusChange:true });
+  const doctors = useQuery(AllDoctors, { pollInterval: 5000, notifyOnNetworkStatusChange:true });
 
   //No. of cases
   const allCase = cases.data?.cases.length;
@@ -15,9 +15,13 @@ const StatHeader = () => {
     (item: any) => item.claimed === false
   ).length;
   //Number of consultants
-  const numOfDoctors = allDoctors.data?.Doctors.length
+  const consultants = doctors.data?.doctors.filter(
+    (doc: any) => doc.isPhysician === true
+  ).length;
   //No. of doctors
-  const numOfPhysicians = allDoctors.data?.Physicians.length
+  const onlyDoctors = doctors.data?.doctors.filter(
+    (doc: any) => doc.isPhysician === false
+  ).length;
 
   return (
     <div className="flex justify-between items-center gap-5 md:gap-6 flex-wrap md:flex-nowrap px-2 md:px-0">
@@ -33,12 +37,12 @@ const StatHeader = () => {
       />
       <Statistics
         title={"Doctors"}
-        value={!allDoctors.loading ? numOfDoctors : "..."}
+        value={!doctors.loading ? onlyDoctors : "..."}
         color={"from-app-blue/50 to-app-blue"}
       />
       <Statistics
         title={"Consultants"}
-        value={!allDoctors.loading ? numOfPhysicians : "..."}
+        value={!doctors.loading ? consultants : "..."}
         color={"from-app-red/50 to-app-red"}
       />
     </div>
