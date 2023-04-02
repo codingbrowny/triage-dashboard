@@ -13,6 +13,7 @@ export const AllCases = gql`
       history
       sex
       postedBy
+      caseChatCount
       createdAt
       updatedAt
     }
