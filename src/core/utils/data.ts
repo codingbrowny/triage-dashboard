@@ -101,7 +101,7 @@ export const CasesData = {
     { field: "id", headerName: "ID" },
     { field: "description", headerName: "Description", minWidth: 150 },
     { field: "caseChatCount", headerName: "No. of Comments", maxWidth: 150, },
-    { field: "closed", headerName: "Status", maxWidth: 180, minWidth: 150, headerAlign: "center" },
+    { field: "closed", headerName: "Status", maxWidth: 180, minWidth: 150, },
     { field: "action", headerName: "", },
   ],
 };
