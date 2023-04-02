@@ -32,6 +32,7 @@ export const SingleCase = gql`
       sex
       age
       history
+      caseChatCount
       createdAt
       updatedAt
     }
