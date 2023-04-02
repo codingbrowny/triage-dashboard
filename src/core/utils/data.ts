@@ -94,6 +94,68 @@ export const ConsultantsData = {
       minWidth: 100,
     },
   ],
+  Data: [
+    {
+      id: 14365870,
+      name: "Dr. Emmanuel Ashley",
+      speciality: "Emergency Medicine",
+      subscription_type: "consultant",
+    },
+    {
+      id: 11436587,
+      name: "Dr. Emmanuel Ashley",
+      speciality: "Orthopedics",
+      subscription_type: "consultant",
+    },
+    {
+      id: 21436587,
+      name: "Dr. Emmanuel Ashley",
+      speciality: "Obs and Gyanea",
+      subscription_type: "consultant",
+    },
+    {
+      id: 31436587,
+      name: "Dr. Emmanuel Ashley",
+      speciality: "ENT",
+      subscription_type: "consultant",
+    },
+    {
+      id: 41436587,
+      name: "Dr. Emmanuel Ashley",
+      speciality: "Surgery",
+      subscription_type: "consultant",
+    },
+    {
+      id: 51436587,
+      name: "Dr. Emmanuel Ashley",
+      speciality: "Opthalmology",
+      subscription_type: "consultant",
+    },
+    {
+      id: 61436587,
+      name: "Dr. Emmanuel Ashley",
+      speciality: "OBS and Gyanea",
+      subscription_type: "consultant",
+    },
+    {
+      id: 71436587,
+      name: "Dr. Emmanuel Ashley",
+      speciality: "Surgery",
+      subscription_type: "consultant",
+    },
+    {
+      id: 81436587,
+      name: "Dr. Emmanuel Ashley",
+      speciality: "ENT",
+      subscription_type: "consultant",
+    },
+    {
+      id: 91436587,
+      name: "Dr. Emmanuel Ashley",
+      speciality: "Surgery",
+      subscription_type: "consultant",
+    },
+  ],
 };
 
 export const CasesData = {

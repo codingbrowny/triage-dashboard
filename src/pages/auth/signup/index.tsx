@@ -1,8 +1,9 @@
 import { useForm } from "@/core/hooks/useForm";
 import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 import Image from "next/image";
 import Link from "next/link";
-import DoctorsImage from "../../../../public/images/doctors.png";
+import HealthCareImage from "../../../core/utils/images/healthcare-personnel.png";
 
 const SignUp = () => {
   const { values, inputChangeHandler } = useForm();
@@ -61,20 +62,16 @@ const SignUp = () => {
           </div>
         </form>
         <Image
-          src={DoctorsImage}
+          src={"/images/healthcare-personnel.png"}
           className="object-cover md:hidden"
           alt="Healthcare Personnel"
-          width={500}
-          height={400}
-          style={{ width: "auto", height: "auto" }}
         />
       </div>
       <div className="w-full h-full hidden md:flex flex-col justify-end items-center">
         <Image
-          src={DoctorsImage}
+          src={"/images/healthcare-personnel.png"}
           className="object-cover"
           alt="Healthcare Personnel"
-          style={{ width: "auto", height: "auto" }}
         />
       </div>
     </div>
