@@ -18,6 +18,7 @@ export const AllDoctors = gql`
     approved
     passwordResetToken
     passwordResetExpires
+    isPhysician
     mobile
   }
 `;
