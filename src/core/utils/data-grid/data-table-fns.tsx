@@ -50,6 +50,12 @@ export default function RenderDataCells({
       },
     };
   }
+  if (item.field === "status") {
+    item = {
+      ...item,
+      headerAlign: "center"
+    }
+  }
   if (item.field === "caseChatCount") {
     item = {
       ...item,
